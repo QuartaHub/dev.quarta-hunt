@@ -232,8 +232,7 @@ class Basket
         );
 
         foreach ($result as $value) {
-            $hlbl = 1; // ID блока с маркировками
-            $hlblock = HL\HighloadBlockTable::getById($hlbl)->fetch();
+            $hlblock = HL\HighloadBlockTable::getById(QUARTA_MARKING_CODE_GROUP)->fetch();
             $entity = HL\HighloadBlockTable::compileEntity($hlblock);
             $entity_data_class = $entity->getDataClass();
 
