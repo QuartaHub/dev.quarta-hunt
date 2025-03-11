@@ -15,7 +15,7 @@ use Bitrix\Sale\BasketItemBase;
 use Bitrix\Main\Context;
 use Bitrix\Currency\CurrencyManager;
 use Bitrix\Sale\Fuser;
-use Bitrix\Sale\ProductTable;
+use Bitrix\Catalog\ProductTable;
 use CCatalogSku;
 use CIBlockElement;
 use CModule;
@@ -25,7 +25,8 @@ use General\Section;
 use General\User;
 use Bitrix\Catalog\VatTable;
 use Bitrix\Main\Application;
-
+use Bitrix\Main\UserField\Internal\UserFieldHelper;
+use Bitrix\Highloadblock as HL;
 
 /**
  * Класс по работе с корзиной
@@ -215,6 +216,37 @@ class Basket
 
     private function createBasketItem(int $productId, int $quantity, array $data = []): void
     {
+        
+        /** добавление маркировочного кода start */
+        $productInfo = CCatalogSKU::GetProductInfo($productId);
+        if (is_array($productInfo)) {
+            $prodIdMarking = $productInfo['ID'];
+        } else {
+            $prodIdMarking = $productId;
+        }
+
+        $userFieldManager = UserFieldHelper::getInstance()->getManager();
+        $result = $userFieldManager->GetUserFields(
+            ProductTable::getUfId(),
+            $prodIdMarking
+        );
+
+        foreach ($result as $value) {
+            $hlbl = 1; // ID блока с маркировками
+            $hlblock = HL\HighloadBlockTable::getById($hlbl)->fetch();
+            $entity = HL\HighloadBlockTable::compileEntity($hlblock);
+            $entity_data_class = $entity->getDataClass();
+
+            $rsData = $entity_data_class::getList([
+                "select" => ["UF_XML_ID"],
+                "filter" => ["ID" => $value['VALUE']]
+            ]);
+
+            while ($arData = $rsData->Fetch()) {
+                $markingID = $arData['UF_XML_ID']; 
+            }
+        }
+        /** добавление маркировочного кода end */
 
         $basketItem = $this->basket->createItem('catalog', $productId);
         $atFields = [
@@ -246,12 +278,14 @@ class Basket
 
         $atFields['WEIGHT'] = (float) $data['WEIGHT'];
 
+        $atFields['MARKING_CODE_GROUP'] = $markingID;
+
         $atFields['CATALOG_XML_ID'] = \Bitrix\Iblock\IblockTable::getList([
             'select' => ['XML_ID'],
             'filter' => [
                 '=ID' => CATALOG_IBLOCK_ID
             ]
-        ])->fetch()['XML_ID'];
+        ])->fetch()['XML_ID'] . '#';
 
         $atFields['PRODUCT_XML_ID'] = ElementTable::query()
             ->addSelect('XML_ID')
@@ -263,7 +297,7 @@ class Basket
         /* свойства корзины на добавление из каталога */
         $basketItem->save();
 
-        $basketAddProperties = ['CML2_ARTICLE'];
+        $basketAddProperties = ['CML2_ARTICLE', 'CATALOG_XML_ID', 'PRODUCT_XML_ID'];
 
         $iblockId = ElementTable::query()
             ->addSelect('IBLOCK_ID')
@@ -280,17 +314,41 @@ class Basket
         $propertyList = [];
         foreach ($basketAddProperties as $property) {
             $propertyDescription = $this->getPropertyDescrption($property, $iblockId);
-            $propertyList[] = [
-                'NAME' => $propertyDescription['NAME'],
-                'CODE' => $property,
-                'VALUE' => current($elementPropertyData)[$property . '_VALUE'],
-                'SORT' => 100,
-            ];
+            //$propertyList[] = [
+            //    'NAME' => $propertyDescription['NAME'],
+            //    'CODE' => $property,
+            //    'VALUE' => current($elementPropertyData)[$property . '_VALUE'],
+            //    'SORT' => 100,
+            //];
+            if ($property == 'CML2_ARTICLE') {
+                $propertyList[] = [
+                    'NAME' => $propertyDescription['NAME'],
+                    'CODE' => $property,
+                    'VALUE' => current($elementPropertyData)[$property . '_VALUE'],
+                    'SORT' => 100,
+                ];
+            }
+            if ($property == 'CATALOG_XML_ID') {
+                $propertyList[] = [
+                    'NAME' => 'Catalog XML_ID',
+                    'CODE' => 'CATALOG.XML_ID',
+                    'VALUE' => $atFields['CATALOG_XML_ID'],
+                    'SORT' => 100,
+                ];
+            }
+            if ($property == 'PRODUCT_XML_ID') {
+                $propertyList[] = [
+                    'NAME' => 'Product XML_ID',
+                    'CODE' => 'PRODUCT.XML_ID',
+                    'VALUE' => $atFields['PRODUCT_XML_ID'],
+                    'SORT' => 100,
+                ];
+            }
         }
+
         $basketPropertyCollection->redefine($propertyList);
         $basketPropertyCollection->save();
         /* ---  */
-
 
         $this->basket->save();
     }
