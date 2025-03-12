@@ -155,53 +155,53 @@ $uriString = $request->getRequestUri();
                 /* сортировки */
                 switch ($sort) {
                     case 'price_desc':
-                        $sortField = 'SCALED_' . $userPriceId;
-                        $sortOrder = 'DESC';
+                        $sortField = 'CATALOG_PRICE_' . $userPriceId;
+                        $sortDirection = 'DESC';
                         break;
 
                     case 'price_asc':
-                        $sortField = 'SCALED_' . $userPriceId;
-                        $sortOrder = 'ASC';
+                        $sortField = 'CATALOG_PRICE_' . $userPriceId;
+                        $sortDirection = 'ASC';
                         break;
 
                     case 'discount_desc':
                         $sortField = 'PROPERTY_SIZE_DISCOUNT';
-                        $sortOrder = 'DESC';
+                        $sortDirection = 'DESC';
                         break;
 
                     case 'discount_asc':
                         $sortField = 'PROPERTY_SIZE_DISCOUNT';
-                        $sortOrder = 'ASC';
+                        $sortDirection = 'ASC';
                         break;
 
                     case 'relevante':
                         $sortField = 'SHOWS';
-                        $sortOrder = 'DESC';
+                        $sortDirection = 'DESC';
                         break;
 
                     case 'alphabet_asc':
                         $sortField = 'NAME';
-                        $sortOrder = 'ASC';
+                        $sortDirection = 'ASC';
                         break;
 
                     case 'alphabet_desc':
                         $sortField = 'NAME';
-                        $sortOrder = 'DESC';
+                        $sortDirection = 'DESC';
                         break;
 
                     case 'available':
                         $sortField = 'CATALOG_AVAILABLE';
-                        $sortOrder = 'DESC';
+                        $sortDirection = 'DESC';
                         break;
 
                     case 'rating_desc':
                         $sortField = 'property_RATING';
-                        $sortOrder = 'DESC';
+                        $sortDirection = 'DESC';
                         break;
 
                     case 'rating_asc':
                         $sortField = 'property_RATING';
-                        $sortOrder = 'ASC';
+                        $sortDirection = 'ASC';
                         break;
 
                     default:
