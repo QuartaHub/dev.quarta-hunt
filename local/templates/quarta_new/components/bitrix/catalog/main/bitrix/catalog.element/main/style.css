@@ -1682,3 +1682,7 @@
     max-width: 300px;
   }
 }
+
+.fslightbox-fade-in-strong {
+  background: gainsboro;
+}
