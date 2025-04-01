@@ -103,3 +103,55 @@ if ($arResult['PROPERTIES']['CML2_ARTICLE']['VALUE']) {
         }
     }
 }
+
+$haveOffers = !empty($arResult['OFFERS']);
+
+if ($haveOffers) {
+    $actualItem = $arResult['OFFERS'][$arResult['OFFERS_SELECTED']] ?? reset($arResult['OFFERS']);
+
+    if ($arResult['DETAIL_PICTURE']) {
+        $actualItem['MORE_PHOTO'][] = $arResult['DETAIL_PICTURE'];
+    }
+
+    if ($actualItem['MORE_PHOTO']) {
+        foreach ($actualItem['MORE_PHOTO'] as &$photo) {
+            $photoFullInfo = CFile::GetByID($photo['ID'])?->fetch();
+
+            if ($photoFullInfo['DESCRIPTION']) {
+                $descriptionPhotoArr = explode('-', $photoFullInfo['DESCRIPTION']);
+
+                $photo['SORT'] = round(end($descriptionPhotoArr), 0);
+            }
+        }
+
+        usort($actualItem['MORE_PHOTO'], function($a, $b){
+            return ($a['SORT'] - $b['SORT']);
+        });
+
+        $arResult['OFFERS'][$arResult['OFFERS_SELECTED']] = $actualItem;
+    }
+} else {
+    $actualItem = $arResult;
+
+    if ($arResult['DETAIL_PICTURE']) {
+        $actualItem['MORE_PHOTO'][] = $arResult['DETAIL_PICTURE'];
+    }
+
+    if ($actualItem['MORE_PHOTO']) {
+        foreach ($actualItem['MORE_PHOTO'] as &$photo) {
+            $photoFullInfo = CFile::GetByID($photo['ID'])?->fetch();
+
+            if ($photoFullInfo['DESCRIPTION']) {
+                $descriptionPhotoArr = explode('-', $photoFullInfo['DESCRIPTION']);
+
+                $photo['SORT'] = round(end($descriptionPhotoArr), 0);
+            }
+        }
+
+        usort($actualItem['MORE_PHOTO'], function($a, $b){
+            return ($a['SORT'] - $b['SORT']);
+        });
+
+        $arResult = $actualItem;
+    }
+}
