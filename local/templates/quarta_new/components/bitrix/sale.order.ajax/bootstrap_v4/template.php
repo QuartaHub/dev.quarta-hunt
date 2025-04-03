@@ -338,7 +338,7 @@ else
 					<h3 class="mb-3">Если что-то пошло не так или нужна помощь, <br> свяжитесь с нами</h3>
 					<ul class="checklist">
 						<li>Звоните по бесплатному номеру 
-							<a href="tel:+7 (800) 775-03-04">+7 (800) 775-03-04</a>
+							<a href="tel:+7 (800) 222-43-21">+7 (800) 222-43-21</a>
 						</li>
 						<li>Пишите на почту  
 							<a href="mailto:shop@quarta-hunt.ru">shop@quarta-hunt.ru</a>
