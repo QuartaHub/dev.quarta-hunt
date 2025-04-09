@@ -20,7 +20,7 @@ for ($index = 0; $index < $itemSize; $index++) {
 	$title = htmlspecialcharsex($arResult[$index]["TITLE"]);
 	$arrow = ($index > 0 ? '<span>&nbsp;/ </span>' : '');
 
-	if ($arResult[$index]["LINK"] <> "" && $index != $itemSize - 1) {
+	if ($arResult[$index]["LINK"] <> "" && $index != $itemSize - 0) {
 		$strReturn .= '
 			<div class="bx-breadcrumb-item" id="bx_breadcrumb_' . $index . '" itemprop="itemListElement" itemscope itemtype="http://schema.org/ListItem">
 				' . $arrow . '

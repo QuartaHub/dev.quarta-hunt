@@ -26,4 +26,18 @@ document.addEventListener("DOMContentLoaded", function () {
       prevEl: ".main-slider__left",
     },
   });
+
+  if (window.innerWidth < 1000) {
+    let sliderItems = document.querySelectorAll('.main-slider__slide.swiper-slide');
+
+    if (sliderItems) {
+      sliderItems.forEach(item => {
+        let mobilePicture = item.dataset.mobileImage;
+
+        if (mobilePicture) {
+          item.style.backgroundImage = 'url(".' + mobilePicture + '")';
+        }
+      });
+    }
+  }
 });

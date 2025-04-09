@@ -549,8 +549,8 @@ if ($arParams['SHOW_DISCOUNT_PERCENT'] === 'Y' && !empty($arParams['DISCOUNT_PER
 						<?= buildSVG('lorry', SITE_TEMPLATE_PATH . ICON_PATH) ?>
 						<ul class="element__delivery-list">
 							<li class="element__delivery-time"><?= Loc::getMessage('DELIVERY_TIME', ['DATE' => FormatDate('d F', MakeTimeStamp((new \Bitrix\Main\Type\DateTime())->add("+1 weeks")))]) ?></li>
-							<li class="element__delivery-price"><?= Loc::getMessage('DELIVERY_POINT') . CurrencyFormat($arResult['HUT_SETTINGS']['FREE_POINT_DELIVERY_VALUE'], 'RUB') ?></li>
-							<li class="element__delivery-price"><?= Loc::getMessage('DELIVERY_COURIER') . CurrencyFormat($arResult['HUT_SETTINGS']['FREE_COURIER_DELIVERY_VALUE'], 'RUB') ?></li>
+							<li class="element__delivery-price"><?= Loc::getMessage('DELIVERY_POINT') //. CurrencyFormat($arResult['HUT_SETTINGS']['FREE_POINT_DELIVERY_VALUE'], 'RUB') ?></li>
+							<?/*<li class="element__delivery-price"><?= Loc::getMessage('DELIVERY_COURIER') . CurrencyFormat($arResult['HUT_SETTINGS']['FREE_COURIER_DELIVERY_VALUE'], 'RUB') ?></li>*/?>
 						</ul>
 					</div>
 					<div class="element__share">

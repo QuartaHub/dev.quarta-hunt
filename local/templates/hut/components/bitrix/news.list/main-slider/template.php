@@ -15,7 +15,7 @@ $this->setFrameMode(true);
 <section class="main-slider swiper">
 	<div class="swiper-wrapper">
 		<? foreach ($arResult["ITEMS"] as $arItem): ?>
-			<div class="main-slider__slide swiper-slide" style="background-image:url('.<?= $arItem['DETAIL_PICTURE']['SRC'] ?>');">
+			<div class="main-slider__slide swiper-slide" data-mobile-image="<?= $arItem['PROPERTIES']['MOBILE_PICTURE']['VALUE'] ? CFile::getPath($arItem['PROPERTIES']['MOBILE_PICTURE']['VALUE']) : '' ?>" style="background-image:url('.<?= $arItem['DETAIL_PICTURE']['SRC'] ?>');">
 				<div class="container">
 					<?
 					$this->AddEditAction($arItem['ID'], $arItem['EDIT_LINK'], CIBlock::GetArrayByID($arItem["IBLOCK_ID"], "ELEMENT_EDIT"));
