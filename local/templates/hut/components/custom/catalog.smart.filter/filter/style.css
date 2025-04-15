@@ -199,6 +199,7 @@
   border-radius: 50%;
   border: 1px solid var(--color-dark1);
   cursor: pointer;
+  background-size: contain;
 }
 
 .bx-filter-param-label.disabled .bx-filter-btn-color-icon,
