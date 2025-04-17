@@ -146,3 +146,10 @@ $eventManager->addEventHandler(
     'OnEndBufferContent',
     'removeType'
 );
+
+// 48623 - загрузка изображений из веб-формы в почтовый шаблон
+$eventManager->addEventHandler(
+    'main',
+    'OnBeforeEventAdd',
+    ['CustomEvents\CustomMailEventHandler', 'onBeforeEventAddHandler']
+);
