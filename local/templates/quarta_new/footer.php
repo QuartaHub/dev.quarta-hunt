@@ -1,10 +1,13 @@
 <?php
 
 use Bitrix\Main\Loader;
+use Bitrix\Main\Localization\Loc;
 
 if (!defined('B_PROLOG_INCLUDED') || B_PROLOG_INCLUDED !== true) {
     die();
 }
+
+Loc::loadMessages(__FILE__);
 
 ?>
 
@@ -270,6 +273,55 @@ if (!defined('B_PROLOG_INCLUDED') || B_PROLOG_INCLUDED !== true) {
 </div>
 
 <?php
+
+global $USER;
+
+if (
+    $USER->IsAuthorized() &&
+    !$USER->GetEmail() &&
+    $_COOKIE['showModalEmptyEmail'] != 'N'
+) : ?>
+    <div class="empty-user-email-modal">
+        <span class="close-empty-email-modal">&#215;</span>
+        <span><?= Loc::getMessage('EMPTY_EMAIL_TEXT') ?></span>
+        <a href="/cabinet/personal/" class="btn btn-primary"><?= Loc::getMessage('EMPTY_EMAIL_BTN_TEXT') ?></a>
+    </div>
+    <div class="background-empty-email-modal"></div>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            let modal = document.querySelector('.empty-user-email-modal');
+            let backgroundModal = document.querySelector('.background-empty-email-modal');
+            let closeBtn = document.querySelector('.close-empty-email-modal');
+            let modalLink = modal.querySelector('a');
+
+            if (
+                modal &&
+                backgroundModal &&
+                closeBtn &&
+                modalLink
+            ) {
+                closeBtn.addEventListener('click', () => {
+                    modal.remove();
+                    backgroundModal.remove();
+                    document.cookie = "showModalEmptyEmail=N";
+                });
+
+                backgroundModal.addEventListener('click', () => {
+                    modal.remove();
+                    backgroundModal.remove();
+                    document.cookie = "showModalEmptyEmail=N";
+                });
+
+                modalLink.addEventListener('click', function (event) {
+                    event.preventDefault();
+                    document.cookie = "showModalEmptyEmail=N";
+                    window.location.href = modalLink.href;
+                });
+            }
+        });
+    </script>
+<?php endif;
+
 /**
  * Виджет Б24
  * 
