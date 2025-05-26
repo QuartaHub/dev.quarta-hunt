@@ -259,6 +259,39 @@ if ($arResult['RESTRICTED_SECTION'] !== 'Y') {
     }
 }
 
+$showMaxQuantity = DEFAULT_MAX_SHOW_PRODUCT;
+$element = CIBlockElement::GetByID($arResult['ID']);
+
+if ($elem = $element->GetNext()) {
+    $sectionsList = CIBlockSection::GetNavChain(CATALOG_IBLOCK_ID, $elem['IBLOCK_SECTION_ID'], ['ID'], true);
+
+    if (!empty($sectionsList)) {
+        $sectionsList = array_reverse($sectionsList);
+
+        foreach ($sectionsList as $section) {
+            $rsSection = CIBlockSection::GetList(
+                [],
+                [
+                    'ID' => $section['ID'],
+                    'IBLOCK_ID' => CATALOG_IBLOCK_ID
+                ],
+                false,
+                [
+                    'ID',
+                    'UF_SHOW_MAX_QUANTITY'
+                ]
+            )->GetNext();
+
+            if ($rsSection['UF_SHOW_MAX_QUANTITY'] || $rsSection['UF_SHOW_MAX_QUANTITY'] == 0) {
+                $showMaxQuantity = $rsSection['UF_SHOW_MAX_QUANTITY'];
+                break;
+            }
+        }
+    }
+}
+
+$arResult['SHOW_MAX_QUANTITY'] = $showMaxQuantity;
+
 /*
  * Поиск внешних ссылок в тексте
  * Добавление target="_blank"

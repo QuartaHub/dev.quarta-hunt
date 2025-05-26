@@ -230,7 +230,9 @@ if (!defined('B_PROLOG_INCLUDED') || B_PROLOG_INCLUDED !== true) {
                         </a>
                     <?}?>
 
-                    <div class="product__add<?= !$arResult['PRODUCT']['USE_OFFERS'] || !$arResult['AVAILABLE'] ? ' placeholder-glow' : '' ?>">
+                    <div class="product__add<?= !$arResult['PRODUCT']['USE_OFFERS'] || !$arResult['AVAILABLE'] ? ' placeholder-glow' : '' ?>"
+                        data-show-max-quantity="<?= $arResult['SHOW_MAX_QUANTITY'] ?>"
+                    >
                         <? if (!$arResult['PRODUCT']['USE_OFFERS'] || !$arResult['AVAILABLE']) { ?>
                             <div class="placeholder"></div>
                         <? } ?>

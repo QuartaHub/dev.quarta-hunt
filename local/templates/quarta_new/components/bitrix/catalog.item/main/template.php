@@ -148,7 +148,7 @@ if (!empty($item['PREVIEW_PICTURE']) && is_array($item['PREVIEW_PICTURE'])) {
 
         <? if ($arResult['PARAMS']['ON_COMPARE_PAGE'] == 'Y'): ?>
             <div class="product-card__add-wrapper">
-                <div class="product-card__add placeholder-glow">
+                <div class="product-card__add placeholder-glow" data-show-max-quantity="<?= $item['SHOW_MAX_QUANTITY'] ?>">
                     <div class="placeholder"></div>
                 </div>
                 <div class="product-card__remove-compare">
@@ -168,7 +168,7 @@ if (!empty($item['PREVIEW_PICTURE']) && is_array($item['PREVIEW_PICTURE'])) {
             </div>
 
         <? else: ?>
-        <div class="product-card__add">
+        <div class="product-card__add" data-show-max-quantity="<?= $item['SHOW_MAX_QUANTITY'] ?>">
             <?php if ($item['AVAILABLE']) : ?>
                 <button onclick="ym(30377432,'reachGoal','product-card__add-basket')" class="btn btn-primary product-card__button product-card__add-basket" disabled>
                     <?= Loc::getMessage('ADD_TO_BASKET_BTN_TEXT') ?>
