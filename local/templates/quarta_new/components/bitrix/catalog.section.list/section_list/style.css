@@ -62,6 +62,29 @@
   margin-top: 0.75rem;
   color: #808d9a;
 }
+.swiper-container_sections .base-slider__arrows{
+    bottom: -3.125rem;
+}
+.swiper-container_sections .base-slider__prev,
+.swiper-container_sections .base-slider__next{
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  background-image: url("data:image/svg+xml,%3Csvg width='15' height='9' viewBox='0 0 9 5' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M1.11495 5L4.5 1.98568L7.88505 5L9 4.00716L4.5 -3.33798e-07L-3.15589e-08 4.00716L1.11495 5Z' fill='%23004989'/%3E%3C/svg%3E%0A")!important;
+  background-repeat: no-repeat;
+  background-position: 7px 9px;
+  background-color: #fff;
+  background-size: 18px;
+  pointer-events: all;
+  transform: rotate(90deg);
+  border: 2px solid #004989;
+}
+.swiper-container_sections .base-slider__prev{
+  transform: rotate(-90deg);
+}
+.swiper-container_sections .base-slider__next{
+  
+}
 @media (max-width: 1399.98px) {
   .category-card__image {
     height: 250px;
