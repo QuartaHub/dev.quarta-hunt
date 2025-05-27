@@ -7456,7 +7456,27 @@ BX.namespace('BX.Sale.OrderAjaxComponent');
 				BX.addClass(this.propsBlockNode, 'bx-step-error');
 			}
 
-			return !(regionErrors.length + propsErrors.length);
+			let propSoaBlock = document.getElementById('bx-soa-orderSave');
+			let privacyBlock = propSoaBlock.querySelector('.privacy-block');
+			let privacyErrors = 0;
+
+			if (privacyBlock) {
+				let privacyInput = privacyBlock.querySelector('input');
+				let privacyErrorBlock = privacyBlock.querySelector('.error_message');
+
+				if (privacyInput && !privacyInput.checked && privacyErrorBlock) {
+					privacyBlock.classList.add('has-error');
+					privacyErrors++;
+					privacyErrorBlock.textContent = 'Вы не согласились с Политикой конфиденциальности';
+					privacyBlock.scrollIntoView({ block: "center", behavior: "smooth" });
+				}
+
+				if (privacyErrors == 0) {
+					privacyBlock.classList.remove('has-error');
+				}
+			}
+
+			return !(regionErrors.length + propsErrors.length + privacyErrors);
 		},
 
 		isValidRegionBlock: function()

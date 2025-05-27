@@ -21,6 +21,22 @@ window.addEventListener('DOMContentLoaded', () => {
                 this.setDisableSubmitButton(false);
                 return;
             }
+
+            let privacyBlock = document.querySelector('.privacy-block');
+
+            if (privacyBlock) {
+                let privacyInput = privacyBlock.querySelector('input');
+                let privacyErrorBlock = privacyBlock.querySelector('.error_message');
+
+                if (privacyInput && !privacyInput.checked && privacyErrorBlock) {
+                    privacyBlock.classList.add('has-error');
+                    privacyErrorBlock.textContent = 'Вы не согласились с Политикой конфиденциальности';
+                    return;
+                }
+
+                privacyBlock.classList.remove('has-error');
+            }
+
             try {
                 const response = await Request.fetchWithFormData(this.ajaxUrl, this.getDataForSubmit());
                 if (!response) {

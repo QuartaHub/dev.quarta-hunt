@@ -335,6 +335,18 @@ function authPhone(data = null, isCaptcha = false) {
     dataSend.captcha_sid = $('input[name="captcha_sid"]').val();
   }
 
+  let privacyBlock = document.querySelector('.privacy-block');
+  let privacyInput = privacyBlock.querySelector('input#privacy-text');
+  let errorBlock = privacyBlock.querySelector('.error_message');
+
+  if (privacyInput && !privacyInput.checked && errorBlock) {
+    privacyBlock.classList.add('has-error');
+    errorBlock.textContent = 'Вы не согласились с Политикой конфиденциальности';
+    return;
+  }
+
+  privacyBlock.classList.remove('has-error');
+
   BX.ajax({
     method: "POST",
     data: dataSend,
@@ -398,7 +410,6 @@ function authPhone(data = null, isCaptcha = false) {
         } else if (data?.captcha_error == true) {
           $("input[name='captcha_word'] + .error_message").text(data.message);
         } else {
-
           if ($("#input_sms_code + .error_message").is(':visible')) {
             $("#input_sms_code + .error_message").text(data.message);
           } else if ($("#phone + .error_message").is(':visible')) {

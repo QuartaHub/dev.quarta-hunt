@@ -61,6 +61,23 @@ $(document).ready(function () {
           e.preventDefault();
         }
       });
+
+      let regBlock = document.getElementById('reg');
+      let privacyBlock = regBlock.querySelector('.privacy-block');
+
+      if (privacyBlock) {
+        let privacyInput = privacyBlock.querySelector('input#privacy-text');
+        let privacyErrorBlock = privacyBlock.querySelector('.error_message');
+
+        if (privacyInput && !privacyInput.checked && privacyErrorBlock) {
+          privacyBlock.classList.add('has-error');
+          privacyErrorBlock.textContent = 'Вы не согласились с Политикой конфиденциальности';
+          e.preventDefault();
+          return;
+        }
+
+        privacyBlock.classList.remove('has-error');
+      }
     });
 
     if ($(".reg-phone-input").length != 0) {

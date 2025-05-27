@@ -1,10 +1,13 @@
-<?
+<?php
+
 /**
  * Bitrix Framework
  * @package bitrix
  * @subpackage main
  * @copyright 2001-2014 Bitrix
  */
+
+use Bitrix\Main\Localization\Loc;
 
 /**
  * Bitrix vars
@@ -14,6 +17,8 @@
  * @param array $arResult
  * @param CBitrixComponentTemplate $this
  */
+
+Loc::loadMessages(__FILE__);
 CJSCore::Init(['masked_input', 'jquery']);
 if(!defined("B_PROLOG_INCLUDED") || B_PROLOG_INCLUDED!==true)
 	die();
@@ -310,12 +315,10 @@ if ($arResult["USE_CAPTCHA"] == "Y") {
 <div>
 	<input type="submit" class="reg-submit-form btn btn-primary btn-lg w-100 mb-3" name="register_submit_button" value="<?=GetMessage("AUTH_REGISTER")?>" />
 </div>
-<small >
-    Нажимая кнопку «Регистрация»,
-    <a href="/privacy-statement/" >
-      я даю свое согласие на обработку моих персональных данных.
-    </a>
-</small>
+    <div class="privacy-block">
+        <input required type="checkbox" id="privacy-text" name="privacy-text">
+        <label for="privacy-text"><?= Loc::getMessage('PRIVACY_TEXT') ?></label>
+    </div>
 
 
 <?endif//$arResult["SHOW_SMS_FIELD"] == true ?>

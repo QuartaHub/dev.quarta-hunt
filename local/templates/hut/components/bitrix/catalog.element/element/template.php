@@ -304,6 +304,9 @@ if ($arParams['SHOW_DISCOUNT_PERCENT'] === 'Y' && !empty($arParams['DISCOUNT_PER
 					if ($arParams['DISPLAY_NAME'] === 'Y') {
 					?>
 						<h1 class="element__title"><?= $name ?></h1>
+                        <?php if ($arResult['PROPERTIES']['CML2_ARTICLE']['VALUE']) : ?>
+                            <span class="element__article"><?= $arResult['PROPERTIES']['CML2_ARTICLE']['VALUE'] ?></span>
+                        <?php endif; ?>
 					<?php
 					}
 					?>

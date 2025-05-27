@@ -88,6 +88,11 @@ $this->setFrameMode(false);?>
 								</div>
 							</div>							
 						<?endif;?>
+                        <div class="privacy-block">
+                            <input required type="checkbox" id="privacy-text" name="privacy-text">
+                            <label for="privacy-text"><?= Loc::getMessage('PRIVACY_TEXT') ?></label>
+                            <div class="error_message"></div>
+                        </div>
 						<div class="bx-authform-formgroup-container">
 							<input type="submit" class="btn btn-primary btn-lg w-100 mb-3 form_auth_phone" name="send_account_info" value="<?=GetMessage("AUTH_LOGIN_PHONE_SUBMIT")?>" />
 							<input type="submit" class="btn btn-primary btn-lg w-100 mb-3 login_auth_phone" style="display:none" name="send_account_info" value="<?=GetMessage("AUTH_AUTHORIZE")?>" />
@@ -157,6 +162,11 @@ $this->setFrameMode(false);?>
 							</div>
 						</div>
 					<?endif*/?>
+                        <div class="privacy-block">
+                            <input required type="checkbox" id="privacy-text" name="privacy-text">
+                            <label for="privacy-text"><?= Loc::getMessage('PRIVACY_TEXT') ?></label>
+                            <div class="error_message"></div>
+                        </div>
 						<div class="bx-authform-formgroup-container au-email-login-btn">
 							<input type="submit" class="btn btn-primary btn-lg w-100 mb-3" name="Login" value="<?=GetMessage("AUTH_AUTHORIZE")?>" />
 						</div>

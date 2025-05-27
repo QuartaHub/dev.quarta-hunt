@@ -13,3 +13,50 @@
 .warranty-form__success-message {
   margin-bottom: 0;
 }
+
+.privacy-block {
+  margin-bottom: 1.5rem !important;
+}
+
+.privacy-block input {
+  width: 1rem;
+  min-width: 1rem;
+  height: 1rem;
+  margin-top: 6px;
+  vertical-align: top;
+  background-color: transparent;
+  background-repeat: no-repeat;
+  background-position: center;
+  border: 1px solid #eeeff3;
+  appearance: none;
+  color-adjust: exact;
+  background-size: auto;
+  transition: all 0.3s ease-in-out;
+  transform: translateY(-0.25rem);
+  cursor: pointer;
+  border-radius: 0.125rem;
+  display: inline-block;
+}
+
+.privacy-block input:checked {
+  background-color: transparent;
+  border-color: #eeeff3;
+  background-image: url('data:image/svg+xml,%3csvg width="9" height="8" viewBox="0 0 9 8" fill="none" xmlns="http://www.w3.org/2000/svg"%3e%3cpath d="M3.42069 6.91431C3.47956 6.99648 3.55717 7.06343 3.64708 7.10962C3.73699 7.1558 3.83661 7.1799 3.93769 7.1799C4.03877 7.1799 4.13839 7.1558 4.2283 7.10962C4.31821 7.06343 4.39582 6.99648 4.45469 6.91431L8.66669 1.07431C8.74269 0.968313 8.66669 0.820312 8.53669 0.820312H7.59869C7.39469 0.820312 7.20069 0.918312 7.08069 1.08631L3.93869 5.44631L2.51469 3.47031C2.39469 3.30431 2.20269 3.20431 1.99669 3.20431H1.05869C0.928691 3.20431 0.852691 3.35231 0.928691 3.45831L3.42069 6.91431V6.91431Z" fill="%23eb5806"/%3e%3c/svg%3e');
+}
+
+.privacy-block label {
+  width: calc(100% - 33px);
+  margin-left: 12px;
+}
+
+.privacy-block .error_message {
+  display: none;
+}
+
+.privacy-block.has-error .error_message {
+  display: block;
+}
+
+.privacy-block.has-error input {
+  border-color: var(--bs-danger);
+}

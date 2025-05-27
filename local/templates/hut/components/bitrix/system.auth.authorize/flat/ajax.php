@@ -41,6 +41,13 @@ if (isset($_POST['captcha']) && !checkCustomHCaptcha($_POST['captcha'])) {
 	]));
 }
 
+if (isset($_POST['privacyFlag']) && $_POST['privacyFlag'] == 'false') {
+    die(Json::encode([
+        'privacy_error' => true,
+        'message' => Loc::getMessage('PRIVACY_ERROR')
+    ]));
+}
+
 if ($_REQUEST['PROCESS_QUICK_REGISTER'] == 'Y') {
 
 	/**

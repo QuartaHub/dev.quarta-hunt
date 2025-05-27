@@ -30,6 +30,20 @@
   font-weight: 600;
 }
 
+.element__article {
+  display: block;
+  margin-top: 12px;
+  font-size: 20px;
+  line-height: 130%;
+  font-weight: 600;
+}
+
+@media (max-width: 768px) {
+  .element__article {
+    font-size: 16px;
+  }
+}
+
 .gray .product-item-detail-price-current {
   color: var(--color-dark2) !important;
 }

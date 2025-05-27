@@ -1,4 +1,4 @@
-<?
+<?php
 $MESS["AUTH_PLEASE_AUTH"] = "Войдите или зарегистрируйтесь";
 $MESS["AUTH_LOGIN"] = "Email";
 $MESS["AUTH_PASSWORD"] = "Пароль";
@@ -19,4 +19,4 @@ $MESS["AUTH_EMAIL_FORM"] = "Войти с помощью электронной 
 $MESS["AUTH_PHONE_FORM"] = "Войти с помощью телефона";
 $MESS["MULTI_ACCOUNT_TITLE"] = "Мы нашли несколько активных профилей с этим номером телефона";
 $MESS["MULTI_ACCOUNT_SUBTITLE"] = "Выберите профиль из списка, чтобы авторизоваться";
-?>
+$MESS['PRIVACY_TEXT'] = 'Заполнив форму на сайте, вы соглашаетесь с нашей <a href="/privacy-statement/">Политикой конфиденциальности</a>';

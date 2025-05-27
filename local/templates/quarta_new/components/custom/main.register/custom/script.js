@@ -60,7 +60,6 @@ $(document).ready(function() {
                 e.preventDefault();
             }
         });
-
     })
 
     if ($('#phone').length != 0) {

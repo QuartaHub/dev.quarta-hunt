@@ -6,7 +6,7 @@
  * @subpackage main
  * @copyright 2001-2014 Bitrix
  */
-
+use Bitrix\Main\Localization\Loc;
 /**
  * Bitrix vars
  * @global CMain $APPLICATION
@@ -15,6 +15,7 @@
  * @param array $arResult
  * @param CBitrixComponentTemplate $this
  */
+Loc::loadMessages(__FILE__);
 CJSCore::Init(['masked_input', 'jquery']);
 if (!defined("B_PROLOG_INCLUDED") || B_PROLOG_INCLUDED !== true) {
 	die();
@@ -257,9 +258,11 @@ if ($arResult["SHOW_SMS_FIELD"] == true) {
 				<div>
 					<input type="submit" class="reg-submit-form button button-primary hover_1" name="register_submit_button" value="<?= GetMessage("AUTH_REGISTER") ?>" />
 				</div>
-				<div class="reg__agree">
-					<?= GetMessage("AGREE", array("#LINK#" => "/policy/")) ?>
-				</div>
+                <div class="privacy-block">
+                    <input required type="checkbox" id="privacy-text" name="privacy-text">
+                    <label for="privacy-text"><?= Loc::getMessage('AGREE', ["#LINK#" => "/policy/"]) ?></label>
+                    <div class="error_message"></div>
+                </div>
 				<a href="#auth" class="reg__back button button-secondary hover_2" rel="modal:open"><?= GetMessage("BACK") ?></a>
 			</div>
 

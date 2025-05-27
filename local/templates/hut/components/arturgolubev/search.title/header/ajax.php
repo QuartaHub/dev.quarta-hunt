@@ -89,8 +89,11 @@ if ($preview) {
 									if ($prop['CODE'] == 'FULL_PREVIEW' && $prop['VALUE'] != '') {
 										$isFull = true;
 									}
-								} ?>
-								<span class="bx_item_block_item_image <?= $isFull ? 'full' : '' ?>"><img src="<?= CFile::GetPath($arElement["PREVIEW_PICTURE"]) ?>" alt=""></span>
+								}
+                                ?>
+								<span class="bx_item_block_item_image <?= $isFull ? 'full' : '' ?>">
+                                    <img src="<?= ($arElement["PREVIEW_PICTURE"]) ? CFile::GetPath($arElement["PREVIEW_PICTURE"]) : CFile::GetPath($arElement["DETAIL_PICTURE"]) ?>" alt="">
+                                </span>
 							<? endif; ?>
 
 							<span class="bx_item_block_item_info_wrap <? if ($preview) echo 'wpic'; ?>" <?= $info_style ?>>

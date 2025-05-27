@@ -490,15 +490,21 @@ else
 				<!--	ORDER SAVE BLOCK	-->
 				<div id="bx-soa-orderSave">
 					<div class="btn-agree">
-						<p>
-            				<?= getMessage('SOA_BTN_ORDER')?>
-            				<a href="/privacy-statement/">
-             					<?= getMessage('SOA_BTN_ORDER_AGREE');?>
-							</a>
-							<a href="/about/oferta/">
-             					<?= getMessage('SOA_BTN_OFERTA_AGREE');?>
-							</a>
-						</p>
+                        <div class="privacy-block">
+<!--                            <input required type="checkbox" id="privacy-text" name="privacy-text">-->
+                            <label for="privacy-text">
+                                <p>
+                                    <?= getMessage('SOA_BTN_ORDER')?>
+                                    <a href="/privacy-statement/">
+                                        <?= getMessage('SOA_BTN_ORDER_AGREE');?>
+                                    </a>
+                                    <a href="/about/oferta/">
+                                        <?= getMessage('SOA_BTN_OFERTA_AGREE');?>
+                                    </a>
+                                </p>
+                            </label>
+                            <div class="error_message"></div>
+                        </div>
 					</div>
 					<div class="checkbox">
 						<?

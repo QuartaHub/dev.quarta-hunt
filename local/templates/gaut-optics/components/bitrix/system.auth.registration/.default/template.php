@@ -6,6 +6,8 @@
  * @copyright 2001-2014 Bitrix
  */
 
+use Bitrix\Main\Localization\Loc;
+
 /**
  * Bitrix vars
  * @global CMain $APPLICATION
@@ -15,6 +17,8 @@
  */
 
 if (!defined("B_PROLOG_INCLUDED") || B_PROLOG_INCLUDED!==true)die();
+
+Loc::loadMessages(__FILE__);
 
 if($arResult["SHOW_SMS_FIELD"] == true)
 {
@@ -55,7 +59,6 @@ if(!empty($arParams["~AUTH_RESULT"])):
 			<input type="text" name="SMS_CODE" maxlength="255" value="<?=htmlspecialcharsbx($arResult["SMS_CODE"])?>" autocomplete="off" />
 		</div>
 	</div>
-
 	<div class="bx-authform-formgroup-container">
 		<input type="submit" class="btn btn-primary" name="code_submit_button" value="<?echo GetMessage("main_register_sms_send")?>" />
 	</div>
@@ -229,6 +232,11 @@ $APPLICATION->IncludeComponent(
 				);?>
 			</div>
 		</div>
+        <div class="privacy-block">
+            <input required type="checkbox" id="privacy-text" name="privacy-text">
+            <label for="privacy-text"><?= Loc::getMessage('PRIVACY_TEXT') ?></label>
+            <div class="error_message"></div>
+        </div>
 		<div class="bx-authform-formgroup-container">
 			<input type="submit" class="ui-button ui-button--red auth" style="padding: 16px; max-width: 100%" name="Register" value="<?=GetMessage("AUTH_REGISTER")?>" />
 		</div>

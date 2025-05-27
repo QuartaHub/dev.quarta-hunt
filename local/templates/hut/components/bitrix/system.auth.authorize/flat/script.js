@@ -338,6 +338,14 @@ window.addEventListener("load", (e) => {
       }
     }
 
+    let phoneAuthBlock = document.getElementById('form_auth_phone');
+    let privacyBlock = phoneAuthBlock.querySelector('.privacy-block');
+    let privacyInput = privacyBlock.querySelector('input#privacy-text');
+
+    if (privacyInput) {
+      dataSend.privacyFlag = privacyInput.checked;
+    }
+
     BX.ajax({
       method: "POST",
       data: dataSend,
@@ -348,6 +356,10 @@ window.addEventListener("load", (e) => {
           /**
            * Быстрая регистрация
            */
+
+          if (privacyBlock) {
+            privacyBlock.classList.remove('has-error');
+          }
 
           initModalQuickRegister(data);
 
@@ -370,6 +382,10 @@ window.addEventListener("load", (e) => {
           }
 
           if (data.error == false) {
+            if (privacyBlock) {
+              privacyBlock.style.display = 'none';
+            }
+
             $(".bx-authform-formgroup-container.code").show();
             $(".bx-authform-formgroup-container.phone").hide();
             $(".form_auth_phone").hide();
@@ -400,8 +416,26 @@ window.addEventListener("load", (e) => {
               }
             }
           } else if (data?.captcha_error == true) {
+            if (privacyBlock) {
+              privacyBlock.classList.remove('has-error');
+            }
+
             $("input[name='captcha_word'] + .error_message").text(data.message);
+          } else if (data?.privacy_error == true) {
+            if (privacyBlock) {
+              privacyBlock.classList.add('has-error');
+
+              let errorBlock = privacyBlock.querySelector('.error_message');
+
+              if (errorBlock) {
+                errorBlock.textContent = data.message;
+              }
+            }
           } else {
+            if (privacyBlock) {
+              privacyBlock.classList.remove('has-error');
+            }
+
             if ($("#input_sms_code + .error_message").is(":visible")) {
               $("#input_sms_code + .error_message").text(data.message);
             } else if ($("#phone + .error_message").is(":visible")) {

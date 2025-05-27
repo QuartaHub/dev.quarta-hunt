@@ -1,8 +1,13 @@
 <?
+
+use Bitrix\Main\Localization\Loc;
+
 if(!defined("B_PROLOG_INCLUDED") || B_PROLOG_INCLUDED !== true)
 {
 	die();
 }
+
+Loc::loadMessages(__FILE__);
 
 /**
  * @global CMain $APPLICATION
@@ -122,7 +127,11 @@ document.getElementById('bx_auth_secure').style.display = '';
         </div>
     </div>
 <?endif?>
-
+        <div class="privacy-block">
+            <input required type="checkbox" id="privacy-text" name="privacy-text">
+            <label for="privacy-text"><?= Loc::getMessage('PRIVACY_TEXT') ?></label>
+            <div class="error_message"></div>
+        </div>
 		<div class="bx-authform-formgroup-container">
 			<input type="submit" class="ui-button ui-button--red auth" style="padding: 16px; max-width: 100%" name="Login" value="<?=GetMessage("AUTH_AUTHORIZE")?>" />
 		</div>

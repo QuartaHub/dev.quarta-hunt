@@ -67,6 +67,13 @@ if (!defined('B_PROLOG_INCLUDED') || B_PROLOG_INCLUDED !== true) {
             data-field-id="form_<?= $arResult['CONTROLS'][3]['FIELD_TYPE'] . '_' . $arResult['CONTROLS'][3]['ID'] ?>"
         ></textarea>
     </div>
+
+    <div class="privacy-block">
+        <input required type="checkbox" id="privacy-text" name="privacy-text">
+        <label for="privacy-text">Заполнив форму на сайте, вы соглашаетесь с нашей <a href="/privacy-statement/">Политикой конфиденциальности</a></label>
+        <div class="error_message"></div>
+    </div>
+
     <button type="submit" class="btn btn-primary w-100">
         Отправить
     </button>

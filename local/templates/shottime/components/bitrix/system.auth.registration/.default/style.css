@@ -1,27 +1,6 @@
-.registration__form-wr .input{
-    position: relative;
-}
-.password-eye{
-    background-image: url(images/eye.svg);
-    position: absolute;
-    right: 15px;
-    bottom: 17px;
-    width: 20px;
-    height: 16px;
-    cursor: pointer;
-    background-repeat: no-repeat;
-    background-size: contain;
-}
-.password-eye.active{
-    background-image: url(images/eye-active.svg);
-}
-
-.registration__form-wr .input.is-invalid .password-eye {
-    bottom: 47px;
-}
-
 .privacy-block {
     margin-bottom: 1.5rem !important;
+    margin-top: 1.5rem !important;
 }
 
 .privacy-block input {
@@ -41,7 +20,7 @@
     transform: translateY(-0.25rem);
     cursor: pointer;
     border-radius: 0.125rem;
-    display: inline-block;
+    display: inline-block !important;
 }
 
 .privacy-block input:checked {
@@ -65,4 +44,8 @@
 
 .privacy-block.has-error input {
     border-color: var(--bs-danger);
+}
+
+.policy {
+    display: none !important;
 }

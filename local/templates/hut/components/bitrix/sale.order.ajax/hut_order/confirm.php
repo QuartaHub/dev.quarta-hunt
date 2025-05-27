@@ -23,6 +23,9 @@ use Bitrix\Main\Localization\Loc;
         </div>
         <h3><?= Loc::getMessage('CONFIRM_ORDER_TITLE') ?></h3>
         <p class="status-order-text"><?= Loc::getMessage('STATUS_ORDER_TEXT') ?></p>
+        <?php if ($arResult['PAY_SYSTEM'] && $arResult['PAY_SYSTEM']['BUFFERED_OUTPUT']) {
+            echo $arResult['PAY_SYSTEM']['BUFFERED_OUTPUT'];
+        } ?>
         <div class="buttons-block-order">
             <a href="/catalog/" class="catalog-link">
                 <?= Loc::getMessage('CATALOG_TEXT') ?>

@@ -79,7 +79,10 @@ foreach ($arResult['PROPERTIES']['FILES']['VALUE'] as $fileId) {
 
     if ($file = $fileResource->GetNext()) {
         /** Выводим только PDF */
-        if ($file['CONTENT_TYPE'] != 'text/plain') {
+        if (
+            $file['CONTENT_TYPE'] != 'text/plain' &&
+            $file['CONTENT_TYPE'] != 'text/html'
+        ) {
             $arResult['FILES'][] = [
                 'NAME' => $file['ORIGINAL_NAME'],
                 'SIZE' => FileSizeHelper::getFormattedSize($file['FILE_SIZE']),

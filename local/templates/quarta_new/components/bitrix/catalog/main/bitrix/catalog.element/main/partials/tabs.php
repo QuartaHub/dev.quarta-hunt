@@ -37,8 +37,7 @@ $isUserAuth = $user->isAuthorized();
         </div>
     </div>
 
-    <div class="container product-about__tab-container product-about__desc product__tab product__tab--active"
-         data-tab="1">
+    <div class="container product-about__tab-container product-about__desc product__tab product__tab--active" data-tab="1">
         <div class="row">
             <div class="col-6 pe-5 product-about__tab-inner">
                 <h3>Характеристики</h3>

@@ -452,9 +452,11 @@ if ((string)$request->get('ORDER_ID') !== '') {
 				</div>
 				<!--	ORDER SAVE BLOCK	-->
 				<div id="bx-soa-orderSave">
-					<div class="personal-request">
-						<?= Loc::getMessage('PERSONAL_REQUEST') ?>
-					</div>
+                    <div class="privacy-block personal-request">
+<!--                        <input required type="checkbox" id="privacy-text" name="privacy-text">-->
+                        <label for="privacy-text"><?= Loc::getMessage('PERSONAL_REQUEST') ?></label>
+                        <div class="error_message"></div>
+                    </div>
 					<div class="buttons-block">
 						<a href="javascript:void(0)" style="margin: 10px 0" class="btn btn-default btn-lg hidden-xs" data-save-button="true">
 							<?= $arParams['MESS_ORDER'] ?>

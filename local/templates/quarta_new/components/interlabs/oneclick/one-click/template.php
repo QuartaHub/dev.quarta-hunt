@@ -180,7 +180,7 @@ $isSuccess = (isset($arResult['success']) && isset($arResult['success']['message
                         <?php } ?>
 
 
-                        <div class="form-group control-buttons">                            
+                        <div class="form-group control-buttons">
                             <button class="btn btn-primary btn-lg js-interlabs-oneclick__dialog__send-button"
                                     href="javascript:void(0);"
                                     onclick="ym(30377432,'reachGoal','js-interlabs-oneclick__dialog__send-button'); return true;"
@@ -189,10 +189,11 @@ $isSuccess = (isset($arResult['success']) && isset($arResult['success']['message
                             </button>
                         </div>
 
-                        <small>                            
-                            <?=Loc::getMessage('AGREEMENT', ['#LINK#' => '/privacy-statement/'])?>
-                            <?=Loc::getMessage('OFERTA', ['#LINK#' => '/about/oferta/'])?>
-                        </small>
+                        <div class="privacy-block">
+                            <input required type="checkbox" id="privacy-text" name="privacy-text">
+                            <label for="privacy-text"><?=Loc::getMessage('AGREEMENT', ['#LINK#' => '/privacy-statement/'])?> <?=Loc::getMessage('OFERTA', ['#LINK#' => '/about/oferta/'])?></label>
+                            <div class="error_message"></div>
+                        </div>
 
                     </form>
                     <div class="js-interlabs-oneclick__result js-step-2">

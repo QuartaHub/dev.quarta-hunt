@@ -120,7 +120,10 @@ class ProductPersonalReviewsComponent extends CBitrixComponent implements Contro
 
         foreach ($this->products as &$prod) {
             if (isset($prod['OFFER_ID'])) {
-                $element = $offersEntity::getByPrimary($prod['OFFER_ID'], [
+                $element = $offersEntity::getList([
+                    'filter' => [
+                        'ID' => $prod['OFFER_ID']
+                    ],
                     'select' => [
                         'NAME',
                         'HL_COLOR',
@@ -143,7 +146,7 @@ class ProductPersonalReviewsComponent extends CBitrixComponent implements Contro
                             ['=this.CLOTHES_SIZE.VALUE' => 'ref.UF_XML_ID']
                         )
                     ]
-                ])->fetch();
+                ])?->fetch();
 
                 $prod['PROPS'] = [
                     'COLOR' => $element['COLOR_NAME'],
@@ -152,15 +155,26 @@ class ProductPersonalReviewsComponent extends CBitrixComponent implements Contro
                 ];
             }
 
-            $element = $catalogEntity::getByPrimary($prod['PRODUCT_ID'], [
+            $element = $catalogEntity::getList([
+                'filter' => [
+                    'ID' => $prod['PRODUCT_ID']
+                ],
                 'select' => [
                     'PREVIEW_PICTURE',
+                    'DETAIL_PICTURE',
                     'IS_FULL_PREVIEW' => 'FULL_PREVIEW.VALUE'
-                ],
-            ])->fetch();
+                ]
+            ])?->fetch();
 
-            $prod['IMG'] = CFile::GetPath($element['PREVIEW_PICTURE']);
-            $prod['IS_FULL'] = $element['IS_FULL_PREVIEW'] ? "Y" : 'N';
+            if ($element) {
+                if ($element['PREVIEW_PICTURE']) {
+                    $prod['IMG'] = CFile::GetPath($element['PREVIEW_PICTURE']);
+                } elseif ($element['DETAIL_PICTURE']) {
+                    $prod['IMG'] = CFile::GetPath($element['DETAIL_PICTURE']);
+                }
+
+                $prod['IS_FULL'] = $element['IS_FULL_PREVIEW'] ? "Y" : 'N';
+            }
         }
     }
 

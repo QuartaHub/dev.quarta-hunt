@@ -15,4 +15,4 @@ $MESS["AUTH_SECURE_NOTE"] = "Перед отправкой формы парол
 $MESS["main_register_sms_code"] = "Код подтверждения из СМС";
 $MESS["main_register_sms_send"] = "Отправить";
 $MESS["main_register_phone_number"] = "Номер телефона";
-?>
+$MESS['PRIVACY_TEXT'] = 'Нажимая кнопку "Регистрация", Вы соглашаетесь <a href="/politic/">Политикой конфиденциальности</a>';

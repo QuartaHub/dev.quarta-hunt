@@ -62,7 +62,8 @@ use Bitrix\Main\Localization\Loc;
     <button type="submit" class="button contacts__submit">
         <?= Loc::getMessage('CONTACT_SEND') ?>
     </button>
-    <div class="contacts-form__agree">
-        <?= Loc::getMessage('CONTACT_AGREE') ?>
+    <div class="privacy-block contacts-form__agree">
+        <input required type="checkbox" id="privacy-text" name="privacy-text">
+        <label for="privacy-text"><?= Loc::getMessage('CONTACT_AGREE') ?></label>
     </div>
 </form>
