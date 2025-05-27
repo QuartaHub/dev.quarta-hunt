@@ -582,6 +582,9 @@
   color: #333333;
   margin-bottom: 2.5rem;
 }
+.product-about .product-description h3{
+    margin-bottom: 0.5rem;
+}
 .product-about__tabs {
   background-color: #eeeff3;
   margin-bottom: 6.25rem;
