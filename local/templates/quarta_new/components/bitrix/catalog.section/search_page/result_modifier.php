@@ -26,10 +26,10 @@ $arResult['ELEMENT_COUNT_OPTIONS'] = [
     20 => '20',
     40 => '40',
     60 => '60',
-    9999 => 'Показать все',
+    100 => '100',
 ];
 
-$arParams['MAX_ITEMS_PER_PAGE'] = 9999;
+$arParams['MAX_ITEMS_PER_PAGE'] = 100;
 
 $context = Application::getInstance()->getContext();
 $request = $context->getRequest();

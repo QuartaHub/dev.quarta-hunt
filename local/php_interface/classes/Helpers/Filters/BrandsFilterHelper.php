@@ -32,7 +32,7 @@ class BrandsFilterHelper
     private int $itemsPerPage = 20;
 
     /** @var int[] */
-    private array $itemsPerPageOptions = [20, 40, 60, 9999];
+    private array $itemsPerPageOptions = [20, 40, 60, 100];
 
 
     public function __construct()
