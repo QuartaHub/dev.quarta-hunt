@@ -44,7 +44,11 @@ class OneCImportHandler
                         'select' => ['UF_XML_ID'],
                         'order' => [],
                         'filter' => [
-                            'UF_NAME' => $sizeProp['VALUE'],
+                            [
+                                'LOGIC' => 'OR',
+                                ['UF_NAME' => $sizeProp['VALUE']],
+                                ['UF_DESCRIPTION' => $sizeProp['VALUE']],
+                            ]
                         ]
                     ])->fetch();
 

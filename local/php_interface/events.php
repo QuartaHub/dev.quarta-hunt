@@ -30,3 +30,11 @@ $eventManager->addEventHandler(
     ['CustomEvents\Hut\OneCImportHandler', 'IBlockElementUpdateHandler']
 );
 
+$eventManager->addEventHandler(
+    'iblock',
+    'OnAfterIBlockElementUpdate',
+    [
+        'CustomEvents\OnAfterIBlockElementUpdate',
+        'OnAfterIBlockElementUpdateHandler'
+    ]
+);

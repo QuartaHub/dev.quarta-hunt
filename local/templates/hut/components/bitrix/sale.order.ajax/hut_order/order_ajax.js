@@ -6817,6 +6817,10 @@ BX.namespace('BX.Sale.OrderAjaxComponent');
 
 		getPropertyRowNode: function(property, propsItemsContainer, disabled)
 		{
+			if (property.getId() == 5) {
+				return;
+			}
+
 			var propsItemNode = BX.create('DIV'),
 				textHtml = '',
 				propertyType = property.getType() || '',

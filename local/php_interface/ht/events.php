@@ -2,9 +2,9 @@
 
 use Bitrix\Main\EventManager;
 use Bitrix\Main\Loader;
-use Bitrix\Sale\DiscountCouponsManagerBase;
 
 Loader::includeModule('sale');
+Loader::includeModule('iblock');
 
 $eventManager = EventManager::getInstance();
 

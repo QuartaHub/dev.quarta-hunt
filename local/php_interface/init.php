@@ -16,6 +16,7 @@ Loader::registerAutoLoadClasses(null, [
 	'CustomEvents\OnBeforeIBlockElementUpdate' => '/local/php_interface/classes/Events/OnBeforeIBlockElementUpdate.php',
 	'BitSaleExport' => '/local/php_interface/override_classes/BitSaleExport.php',
     'CustomEvents\Hut\OneCImportHandler' => '/local/php_interface/classes/Events/Hut/OneCImportHandler.php',
+    'CustomEvents\OnAfterIBlockElementUpdate' => '/local/php_interface/classes/Events/OnAfterIBlockElementUpdate.php',
 ]);
 
 include 'events.php';
