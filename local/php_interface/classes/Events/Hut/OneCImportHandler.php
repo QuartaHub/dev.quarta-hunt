@@ -30,6 +30,10 @@ class OneCImportHandler
                 $oneCSize = $arFields['PROPERTY_VALUES'][self::$HUT_SIZE_PROPD_ID_1C];
             }
 
+            if (is_array($oneCSize) && is_array($oneCSize['n0'])) {
+                $oneCSize = $oneCSize['n0']['VALUE'];
+            }
+
             if ($oneCSize) {
                 $sizeProp = PropertyEnumerationTable::getList([
                     'select' => ['ID', 'VALUE'],
