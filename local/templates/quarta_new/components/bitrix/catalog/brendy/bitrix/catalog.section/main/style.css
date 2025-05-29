@@ -49,7 +49,7 @@
   text-decoration: none;
 }
 .filters-sort__count li:last-child {
-  margin-left: 1rem;
+  /*margin-left: 1rem;*/
 }
 .filters-sort .checkbox {
   display: inline-flex;
