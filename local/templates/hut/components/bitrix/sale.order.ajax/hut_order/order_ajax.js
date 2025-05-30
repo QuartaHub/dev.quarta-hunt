@@ -5908,6 +5908,27 @@ BX.namespace('BX.Sale.OrderAjaxComponent');
 				}
 			}
 
+			let addressBlock = document.querySelector('.bx-soa-customer-field[data-property-id-row="7"]');
+			let deliveryBlock = document.getElementById('bx-soa-delivery');
+			let customerBlock = document.querySelector('.bx-soa-customer');
+
+			if (
+				currentDelivery instanceof Object &&
+				addressBlock &&
+				deliveryBlock &&
+				customerBlock
+			) {
+				if (currentDelivery.ID == 95) {
+					deliveryBlock.appendChild(addressBlock);
+					
+					if (customerBlock.querySelector('.bx-soa-customer-field[data-property-id-row="7"]')) {
+						customerBlock.querySelector('.bx-soa-customer-field[data-property-id-row="7"]').remove();
+					}
+				} else {
+					customerBlock.appendChild(addressBlock);
+				}
+			}
+
 			return currentDelivery;
 		},
 
