@@ -158,27 +158,37 @@ class ProductBasket {
     createCounter(id, maxQuantity, quantity = 1) {
         this.removeAddToBasketButton();
         this.productAddElement.insertAdjacentHTML('afterbegin', this.createCounterHtml(quantity));
-        this.hangCounterEvents(id, maxQuantity, quantity);
+        let showMaxQuantity = this.productAddElement.dataset.showMaxQuantity;
+
+        this.hangCounterEvents(id, maxQuantity, quantity, showMaxQuantity);
     }
 
-    hangCounterEvents(id = this.productId, maxQuantity = this.productQuantity, quantity = this.productBasket) {
+    hangCounterEvents(id = this.productId, maxQuantity = this.productQuantity, quantity = this.productBasket, showMaxQuantity) {
         this.productCounter = this.productElement.querySelector('.product-count');
         if (!this.productCounter) {
             return;
         }
-        this.createCounterInstance(id, maxQuantity, quantity);
+        this.createCounterInstance(id, maxQuantity, quantity, showMaxQuantity);
     }
 
-    createCounterInstance(id, maxQuantity, quantity) {
+    createCounterInstance(id, maxQuantity, quantity, showMaxQuantity) {
         const selectorMinusButton = '.product-count__add-minus';
         const selectorPlusButton = '.product-count__add-plus';
         const selectorInput = '.product-count input';
+
+        if (parseInt(showMaxQuantity) === 0) {
+            showMaxQuantity = 9999;
+        }
+
+        if (showMaxQuantity > maxQuantity) {
+            showMaxQuantity = maxQuantity;
+        }
 
         this.counter = new Counter({
             selectorMinusButton,
             selectorPlusButton,
             selectorInput,
-            maxValue: maxQuantity,
+            maxValue: showMaxQuantity,
             blockChangeState: true,
             onPlus: (value, counterInstance) => {
                 this.handleSetQuantityForProduct({id, quantity, value: value + 1, counterInstance});

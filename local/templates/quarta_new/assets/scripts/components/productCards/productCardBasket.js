@@ -111,11 +111,21 @@ class ProductCardBasket {
         const selectorPlusButton = `${productCardSelector} .product__add-plus`;
         const selectorInput = `${productCardSelector} .product__add-count input`;
 
+        let showMaxValue = parseInt(document.querySelector(selectorInput).dataset.showMaxQuantity);
+
+        if (showMaxValue === 0) {
+            showMaxValue = 9999;
+        }
+
+        if (showMaxValue > this.productQuantity) {
+            showMaxValue = this.productQuantity;
+        }
+
         new Counter({
             selectorMinusButton,
             selectorPlusButton,
             selectorInput,
-            maxValue: this.productQuantity,
+            maxValue: showMaxValue ? showMaxValue : this.productQuantity,
             blockChangeState: true,
             onPlus: (value, counterInstance) => {
                 this.handleAddProductToBasket(counterInstance);
@@ -286,7 +296,7 @@ class ProductCardBasket {
 
     createCounter(quantity = 1) {
         const block = this.productElement.querySelector('.product-card__add');
-        block.innerHTML = this.createCounterHtml(quantity);
+        block.innerHTML = this.createCounterHtml(quantity, block.dataset.showMaxQuantity);
         this.hangCounterEvents();
     }
 
@@ -304,11 +314,11 @@ class ProductCardBasket {
         )
     }
 
-    createCounterHtml(value = 1) {
+    createCounterHtml(value = 1, showMaxQuantity) {
         return (
             `<span class="input-group product__add-count">
                 <span class="btn btn-primary product__add-minus">-</span>
-                <input type="number" class="form-control" value="${value}" />
+                <input type="number" class="form-control" data-show-max-quantity="${showMaxQuantity}" value="${value}" />
                 <span class="btn btn-primary product__add-plus">+</span>
              </span>`
         )
