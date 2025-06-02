@@ -5920,7 +5920,7 @@ BX.namespace('BX.Sale.OrderAjaxComponent');
 			) {
 				if (currentDelivery.ID == 95) {
 					deliveryBlock.appendChild(addressBlock);
-					
+
 					if (customerBlock.querySelector('.bx-soa-customer-field[data-property-id-row="7"]')) {
 						customerBlock.querySelector('.bx-soa-customer-field[data-property-id-row="7"]').remove();
 					}
