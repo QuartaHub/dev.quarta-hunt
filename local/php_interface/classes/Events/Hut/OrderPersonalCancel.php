@@ -13,8 +13,10 @@ class OrderPersonalCancel
 
         if ($request->get("CANCEL")) {
             $order = \Bitrix\Sale\Order::load($request->get("ID"));
-            $order->setField("CANCELED", "Y");
-            $order->save();
+            if ($order->isCanceled() == false) {
+                $order->setField("CANCELED", "Y");
+                $order->save();
+            }
         }
     }
 }
