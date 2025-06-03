@@ -1,6 +1,7 @@
 <?php
 
 use \Bitrix\Main\Loader;
+use CustomEvents\Hut\OrderPersonalCancel;
 
 include($_SERVER['DOCUMENT_ROOT'] . '/local/php_interface/include/constants.php');
 include($_SERVER['DOCUMENT_ROOT'] . '/local/php_interface/include/functions.php');
@@ -19,7 +20,8 @@ Loader::registerAutoLoadClasses(null, [
     'Catalog\Orders\OrderHelper' => '/local/php_interface/classes/Catalog/Orders.php',
     'Local\ORM\HutcolorsTable' => '/local/php_interface/classes/ORM/HutcolorsTable.php',
     'Local\ORM\HutclothessizeTable' => '/local/php_interface/classes/ORM/HutclothessizeTable.php',
-    'CustomEvents\CUserEx' => '/local/php_interface/classes/Events/CUserEx.php'
+    'CustomEvents\CUserEx' => '/local/php_interface/classes/Events/CUserEx.php',
+    'CustomEvents\Hut\OrderPersonalCancel' => '/local/php_interface/classes/Events/Hut\OrderPersonalCancel.php',
 ]);
 
 function debug($var)
@@ -30,3 +32,5 @@ function debug($var)
         print_r('</pre>');
     }
 }
+
+OrderPersonalCancel::orderCancel();
