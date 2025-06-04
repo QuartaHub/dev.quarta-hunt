@@ -282,7 +282,7 @@ if ($elem = $element->GetNext()) {
                 ]
             )->GetNext();
 
-            if ($rsSection['UF_SHOW_MAX_QUANTITY'] || $rsSection['UF_SHOW_MAX_QUANTITY'] == 0) {
+            if ($rsSection['UF_SHOW_MAX_QUANTITY'] || $rsSection['UF_SHOW_MAX_QUANTITY'] === '0') {
                 $showMaxQuantity = $rsSection['UF_SHOW_MAX_QUANTITY'];
                 break;
             }
