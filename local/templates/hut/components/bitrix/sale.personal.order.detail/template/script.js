@@ -96,29 +96,31 @@ BX.namespace('BX.Sale.PersonalOrderComponent');
 })();
 
 document.addEventListener("DOMContentLoaded", function () {
-	document.querySelector('.sale-order-detail-about-order-inner-container-repeat-cancel').addEventListener('click', async function (event) {
-		event.preventDefault();
-		const href = this.getAttribute('href');
-		const paramsString = href.replace(/^\/.*?\?/, '');
-		const params = new URLSearchParams(paramsString);
+	if (document.querySelector('.sale-order-detail-about-order-inner-container-repeat-cancel')) {
+		document.querySelector('.sale-order-detail-about-order-inner-container-repeat-cancel').addEventListener('click', async function (event) {
+			event.preventDefault();
+			const href = this.getAttribute('href');
+			const paramsString = href.replace(/^\/.*?\?/, '');
+			const params = new URLSearchParams(paramsString);
 
-		try {
-			const data = new URLSearchParams({
-				ID: params.get('ID'),
-				CANCEL: params.get('CANCEL')
-			});
+			try {
+				const data = new URLSearchParams({
+					ID: params.get('ID'),
+					CANCEL: params.get('CANCEL')
+				});
 
-			const response = await fetch('/local/ajax/hut/orderCancel.php', {
-				method: 'POST',
-				body: data
-			});
+				const response = await fetch('/local/ajax/hut/orderCancel.php', {
+					method: 'POST',
+					body: data
+				});
 
-			const result = await response.text();
-			if (result.includes('success')) {
-				window.location.reload();
+				const result = await response.text();
+				if (result.includes('success')) {
+					window.location.reload();
+				}
+			} catch (error) {
+				console.error('Ошибка:', error);
 			}
-		} catch (error) {
-			console.error('Ошибка:', error);
-		}
-	});
+		});
+	}
 });
