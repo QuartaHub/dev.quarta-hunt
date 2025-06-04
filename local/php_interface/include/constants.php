@@ -81,4 +81,7 @@ const HUT_SIZE_PROP_ID_1C = 1506;
 const HUT_CATALOG_OFFERS_IBLOCK_ID = 108;
 
 // ID HL блока с маркировками
-const QUARTA_MARKING_CODE_GROUP = 1; 
+const QUARTA_MARKING_CODE_GROUP = 1;
+
+// стандартное значение показываемого максимального количества товара в корзине
+const DEFAULT_MAX_SHOW_PRODUCT = 100;

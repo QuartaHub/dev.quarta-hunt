@@ -357,7 +357,7 @@ if (!empty($arParams['LABEL_PROP_POSITION']))
                             data-entity="basket-item-quantity-block">
                             <span class="basket-item-amount-btn-minus" data-entity="basket-item-quantity-minus"></span>
                             <div class="basket-item-amount-filed-block">
-                                <input type="text" class="basket-item-amount-filed" value="{{QUANTITY}}"
+                                <input type="text" class="basket-item-amount-filed" data-show-max-quantity="{{SHOW_MAX_QUANTITY}}" value="{{QUANTITY}}"
                                     {{#NOT_AVAILABLE}} disabled="disabled"{{/NOT_AVAILABLE}}
                                     data-value="{{QUANTITY}}" data-entity="basket-item-quantity-field"
                                     id="basket-item-quantity-{{ID}}">
