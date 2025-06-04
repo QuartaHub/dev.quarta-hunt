@@ -53,6 +53,7 @@ if (!defined('B_PROLOG_INCLUDED') || B_PROLOG_INCLUDED !== true) {
                                         'ITEM' => $item,
                                         'PARAMS' => $arParams
                                     ),
+                                    'IS_FAVORITES' => 'Y'
                                 ),
                                 $component
                             ); ?>

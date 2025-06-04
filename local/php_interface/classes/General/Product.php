@@ -2,6 +2,7 @@
 
 namespace General;
 
+use Bitrix\Main\Diag\Debug;
 use CCatalogProduct;
 use CCatalogSku;
 use CFile;
@@ -159,17 +160,18 @@ class Product
                 continue;
             }
             $optimalPrice = CCatalogProduct::GetOptimalPrice($price['PRODUCT_ID'], 1, [], 'N', [$price]);
-            $discountPercent = round($optimalPrice['RESULT_PRICE']['PERCENT']);
+            $discountPercent = count($optimalPrice['DISCOUNT']);
+
             if ($discountPercent > 0) {
                 $products[$price['PRODUCT_ID']]['PRICES_LIST'] = [
-                    'PRICE' => number_format($optimalPrice['RESULT_PRICE']['BASE_PRICE'], 0, '.', ' '),
-                    'OLD_PRICE' => number_format($optimalPrice['RESULT_PRICE']['DISCOUNT_PRICE'], 0, '.', ' '),
+                    'PRICE' => number_format($optimalPrice['PRICE']['PRICE'], 0, '.', ' '),
+                    'OLD_PRICE' => number_format($optimalPrice['PRICE']['OLD_PRICE'], 0, '.', ' '),
                     'DISCOUNT' => $discountPercent
                 ];
                 continue;
             }
             $products[$price['PRODUCT_ID']]['PRICES_LIST'] = [
-                'PRICE' => number_format($optimalPrice['RESULT_PRICE']['BASE_PRICE'], 0, '.', ' '),
+                'PRICE' => number_format($optimalPrice['PRICE']['PRICE'], 0, '.', ' '),
             ];
         }
     }

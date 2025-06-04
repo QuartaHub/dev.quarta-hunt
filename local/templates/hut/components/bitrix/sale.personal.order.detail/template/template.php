@@ -69,6 +69,38 @@ if (!empty($arResult['ERRORS']['FATAL'])) {
 					</div>
 				</div>
 				<div class="sale-order-detail-general-head-right">
+					<div class="sale-order-detail-payment-options-methods-container">
+						<?php
+						$paymentData = [];
+						foreach ($arResult['PAYMENT'] as $payment) {
+						?>
+							<div class="payment-options-methods-row">
+								<div class="sale-order-detail-payment-options-methods">
+									<?php
+									if (
+										$payment["PAID"] !== "Y"
+										&& $payment['PAY_SYSTEM']["IS_CASH"] !== "Y"
+										&& $payment['PAY_SYSTEM']['ACTION_FILE'] !== 'cash'
+										&& $payment['PAY_SYSTEM']['PSA_NEW_WINDOW'] !== 'Y'
+										&& $arResult['CANCELED'] !== 'Y'
+										&& $arResult["IS_ALLOW_PAY"] !== "N"
+									) {
+									?>
+										<div class="sale-order-detail-payment-options-methods-template">
+											<span class="sale-paysystem-close active-button">
+												<span class="sale-paysystem-close-item sale-order-payment-cancel"></span><!--sale-paysystem-close-item-->
+											</span><!--sale-paysystem-close-->
+											<?= $payment['BUFFERED_OUTPUT'] ?>
+										</div>
+									<?php
+									}
+									?>
+								</div>
+							</div>
+						<?php
+						}
+						?>
+					</div>
 					<?php if ($arParams['GUEST_MODE'] !== 'Y') { ?>
 						<div class="sale-order-detail-about-order-inner-container-repeat">
 							<a href="<?= $arResult["URL_TO_COPY"] ?>" class="sale-order-detail-about-order-inner-container-repeat-button">
@@ -133,7 +165,7 @@ if (!empty($arResult['ERRORS']['FATAL'])) {
 				}
 				?>
 			</div>
-			<div class="row sale-order-detail-total">
+			<div class="sale-order-detail-total">
 				<div class="sale-order-detail-total-container">
 					<ul class="sale-order-detail-total-list">
 						<li class="sale-order-detail-total-quantity">

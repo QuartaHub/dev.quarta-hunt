@@ -21,7 +21,6 @@ document.addEventListener('click', (e) => {
 })
 
 function interlabsOneClickComponentApp() {
-
   /** Поле телефон */
   const phoneInput = new Input({
     wrapperSelector: '.phone-wrapper-click',
