@@ -54,6 +54,36 @@ $favoritesCount = $favorites->getFavoritesCount();
         window.isAuth = '<?= boolval($isAuth) ?>';
         window.favoritesCount = <?= $favoritesCount ?>;
     </script>
+    <!-- Top.Mail.Ru counter -->
+    <script type="text/javascript">
+        var _tmr = window._tmr || (window._tmr = []);
+        _tmr.push({
+            id: "3655279",
+            type: "pageView",
+            start: (new Date()).getTime()
+        });
+        (function(d, w, id) {
+            if (d.getElementById(id)) return;
+            var ts = d.createElement("script");
+            ts.type = "text/javascript";
+            ts.async = true;
+            ts.id = id;
+            ts.src = "https://top-fwz1.mail.ru/js/code.js";
+            var f = function() {
+                var s = d.getElementsByTagName("script")[0];
+                s.parentNode.insertBefore(ts, s);
+            };
+            if (w.opera == "[object Opera]") {
+                d.addEventListener("DOMContentLoaded", f, false);
+            } else {
+                f();
+            }
+        })(document, window, "tmr-code");
+    </script>
+    <noscript>
+        <div><img src="https://top-fwz1.mail.ru/counter?id=3655279;js=na" style="position:absolute;left:-9999px;" alt="Top.Mail.Ru" /></div>
+    </noscript>
+    <!-- /Top.Mail.Ru counter -->
 </head>
 
 <body>
@@ -283,54 +313,53 @@ $favoritesCount = $favorites->getFavoritesCount();
             </div>
         </div>
         <? $APPLICATION->IncludeComponent(
-	"arturgolubev:search.title", 
-	"header", 
-	array(
-		"ANIMATE_HINTS" => array(
-		),
-		"ANIMATE_HINTS_SPEED" => "1",
-		"CATEGORY_0" => array(
-			0 => "iblock_1c_catalog",
-		),
-		"CATEGORY_0_TITLE" => "",
-		"CATEGORY_0_iblock_hut" => IblockHelper::getIdByCode("hutMainCatalog"),
-		"CHECK_DATES" => "Y",
-		"CONTAINER_ID" => "smart-title-search",
-		"CONVERT_CURRENCY" => "N",
-		"FILTER_NAME" => "",
-		"INPUT_ID" => "smart-title-search-input",
-		"INPUT_PLACEHOLDER" => "Я ищу ...",
-		"NUM_CATEGORIES" => "1",
-		"ORDER" => "rank",
-		"PAGE" => "/catalog/",
-		"PREVIEW_HEIGHT_NEW" => "",
-		"PREVIEW_WIDTH_NEW" => "",
-		"PRICE_CODE" => array(
-			0 => "BASE",
-		),
-		"PRICE_VAT_INCLUDE" => "Y",
-		"SHOW_HISTORY" => "N",
-		"SHOW_HISTORY_POPUP" => "N",
-		"SHOW_INPUT" => "Y",
-		"SHOW_LOADING_ANIMATE" => "N",
-		"SHOW_PREVIEW" => "Y",
-		"SHOW_PREVIEW_TEXT" => "N",
-		"SHOW_PROPS" => array(
-			0 => "TYPE",
-			1 => "FULL_PREVIEW",
-			2 => "",
-		),
-		"SHOW_QUANTITY" => "N",
-		"TOP_COUNT" => "5",
-		"USE_LANGUAGE_GUESS" => "Y",
-		"VOICE_INPUT" => "N",
-		"COMPONENT_TEMPLATE" => "header",
-		"CATEGORY_0_iblock_1c_catalog" => array(
-			0 => "107",
-		)
-	),
-	false
-); ?>
+            "arturgolubev:search.title",
+            "header",
+            array(
+                "ANIMATE_HINTS" => array(),
+                "ANIMATE_HINTS_SPEED" => "1",
+                "CATEGORY_0" => array(
+                    0 => "iblock_1c_catalog",
+                ),
+                "CATEGORY_0_TITLE" => "",
+                "CATEGORY_0_iblock_hut" => IblockHelper::getIdByCode("hutMainCatalog"),
+                "CHECK_DATES" => "Y",
+                "CONTAINER_ID" => "smart-title-search",
+                "CONVERT_CURRENCY" => "N",
+                "FILTER_NAME" => "",
+                "INPUT_ID" => "smart-title-search-input",
+                "INPUT_PLACEHOLDER" => "Я ищу ...",
+                "NUM_CATEGORIES" => "1",
+                "ORDER" => "rank",
+                "PAGE" => "/catalog/",
+                "PREVIEW_HEIGHT_NEW" => "",
+                "PREVIEW_WIDTH_NEW" => "",
+                "PRICE_CODE" => array(
+                    0 => "BASE",
+                ),
+                "PRICE_VAT_INCLUDE" => "Y",
+                "SHOW_HISTORY" => "N",
+                "SHOW_HISTORY_POPUP" => "N",
+                "SHOW_INPUT" => "Y",
+                "SHOW_LOADING_ANIMATE" => "N",
+                "SHOW_PREVIEW" => "Y",
+                "SHOW_PREVIEW_TEXT" => "N",
+                "SHOW_PROPS" => array(
+                    0 => "TYPE",
+                    1 => "FULL_PREVIEW",
+                    2 => "",
+                ),
+                "SHOW_QUANTITY" => "N",
+                "TOP_COUNT" => "5",
+                "USE_LANGUAGE_GUESS" => "Y",
+                "VOICE_INPUT" => "N",
+                "COMPONENT_TEMPLATE" => "header",
+                "CATEGORY_0_iblock_1c_catalog" => array(
+                    0 => "107",
+                )
+            ),
+            false
+        ); ?>
     </header>
     <main>
         <? $APPLICATION->ShowViewContent('catalog_banner'); ?>
