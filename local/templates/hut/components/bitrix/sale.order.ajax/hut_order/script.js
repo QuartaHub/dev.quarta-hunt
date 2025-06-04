@@ -10,26 +10,25 @@ BX.saleOrderAjax = {
 	properties: {},
 
 	// called once, on component load
-	init: function(options)
-	{
+	init: function (options) {
 		var ctx = this;
 		this.options = options;
 
-		window.submitFormProxy = BX.proxy(function(){
+		window.submitFormProxy = BX.proxy(function () {
 			ctx.submitFormProxy.apply(ctx, arguments);
 		}, this);
 
-		BX(function(){
+		BX(function () {
 			ctx.initDeferredControl();
 		});
-		BX(function(){
+		BX(function () {
 			ctx.BXCallAllowed = true; // unlock form refresher
 		});
 
 		this.controls.scope = BX('bx-soa-order');
 
 		// user presses "add location" when he cannot find location in popup mode
-		BX.bindDelegate(this.controls.scope, 'click', {className: '-bx-popup-set-mode-add-loc'}, function(){
+		BX.bindDelegate(this.controls.scope, 'click', { className: '-bx-popup-set-mode-add-loc' }, function () {
 
 			var input = BX.create('input', {
 				attrs: {
@@ -46,19 +45,16 @@ BX.saleOrderAjax = {
 		});
 	},
 
-	cleanUp: function(){
+	cleanUp: function () {
 
-		for(var k in this.properties)
-		{
-			if (this.properties.hasOwnProperty(k))
-			{
-				if(typeof this.properties[k].input != 'undefined')
-				{
+		for (var k in this.properties) {
+			if (this.properties.hasOwnProperty(k)) {
+				if (typeof this.properties[k].input != 'undefined') {
 					BX.unbindAll(this.properties[k].input);
 					this.properties[k].input = null;
 				}
 
-				if(typeof this.properties[k].control != 'undefined')
+				if (typeof this.properties[k].control != 'undefined')
 					BX.unbindAll(this.properties[k].control);
 			}
 		}
@@ -66,14 +62,13 @@ BX.saleOrderAjax = {
 		this.properties = {};
 	},
 
-	addPropertyDesc: function(desc){
+	addPropertyDesc: function (desc) {
 		this.properties[desc.id] = desc.attributes;
 		this.properties[desc.id].id = desc.id;
 	},
 
 	// called each time form refreshes
-	initDeferredControl: function()
-	{
+	initDeferredControl: function () {
 		var ctx = this,
 			k,
 			row,
@@ -86,43 +81,43 @@ BX.saleOrderAjax = {
 			adapter;
 
 		// first, init all controls
-		if(typeof window.BX.locationsDeferred != 'undefined'){
+		if (typeof window.BX.locationsDeferred != 'undefined') {
 
 			this.BXCallAllowed = false;
 
-			for(k in window.BX.locationsDeferred){
+			for (k in window.BX.locationsDeferred) {
 
 				window.BX.locationsDeferred[k].call(this);
 				window.BX.locationsDeferred[k] = null;
-				delete(window.BX.locationsDeferred[k]);
+				delete (window.BX.locationsDeferred[k]);
 
 				this.properties[k].control = window.BX.locationSelectors[k];
-				delete(window.BX.locationSelectors[k]);
+				delete (window.BX.locationSelectors[k]);
 			}
 		}
 
-		for(k in this.properties){
+		for (k in this.properties) {
 
 			// zip input handling
-			if(this.properties[k].isZip){
-				row = this.controls.scope.querySelector('[data-property-id-row="'+k+'"]');
-				if(BX.type.isElementNode(row)){
+			if (this.properties[k].isZip) {
+				row = this.controls.scope.querySelector('[data-property-id-row="' + k + '"]');
+				if (BX.type.isElementNode(row)) {
 
 					input = row.querySelector('input[type="text"]');
-					if(BX.type.isElementNode(input)){
+					if (BX.type.isElementNode(input)) {
 						this.properties[k].input = input;
 
 						// set value for the first "location" property met
 						locPropId = false;
-						for(m in this.properties){
-							if(this.properties[m].type == 'LOCATION'){
+						for (m in this.properties) {
+							if (this.properties[m].type == 'LOCATION') {
 								locPropId = m;
 								break;
 							}
 						}
 
-						if(locPropId !== false){
-							BX.bindDebouncedChange(input, function(value){
+						if (locPropId !== false) {
+							BX.bindDebouncedChange(input, function (value) {
 
 								var zipChangedNode = BX('ZIP_PROPERTY_CHANGED');
 								zipChangedNode && (zipChangedNode.value = 'Y');
@@ -130,14 +125,14 @@ BX.saleOrderAjax = {
 								input = null;
 								row = null;
 
-								if(BX.type.isNotEmptyString(value) && /^\s*\d+\s*$/.test(value) && value.length > 3){
+								if (BX.type.isNotEmptyString(value) && /^\s*\d+\s*$/.test(value) && value.length > 3) {
 
-									ctx.getLocationsByZip(value, function(locationsData){
+									ctx.getLocationsByZip(value, function (locationsData) {
 										ctx.properties[locPropId].control.setValueByLocationIds(locationsData);
-									}, function(){
-										try{
+									}, function () {
+										try {
 											// ctx.properties[locPropId].control.clearSelected();
-										}catch(e){}
+										} catch (e) { }
 									});
 								}
 							});
@@ -147,85 +142,82 @@ BX.saleOrderAjax = {
 			}
 
 			// location handling, town property, etc...
-			if(this.properties[k].type == 'LOCATION')
-			{
+			if (this.properties[k].type == 'LOCATION') {
 
-				if(typeof this.properties[k].control != 'undefined'){
+				if (typeof this.properties[k].control != 'undefined') {
 
 					control = this.properties[k].control; // reference to sale.location.selector.*
 					code = control.getSysCode();
 
 					// we have town property (alternative location)
-					if(typeof this.properties[k].altLocationPropId != 'undefined')
-					{
-						if(code == 'sls') // for sale.location.selector.search
+					if (typeof this.properties[k].altLocationPropId != 'undefined') {
+						if (code == 'sls') // for sale.location.selector.search
 						{
 							// replace default boring "nothing found" label for popup with "-bx-popup-set-mode-add-loc" inside
 							control.replaceTemplate('nothing-found', this.options.messages.notFoundPrompt);
 						}
 
-						if(code == 'slst')  // for sale.location.selector.steps
+						if (code == 'slst')  // for sale.location.selector.steps
 						{
-							(function(k, control){
+							(function (k, control) {
 
 								// control can have "select other location" option
 								control.setOption('pseudoValues', ['other']);
 
 								// insert "other location" option to popup
-								control.bindEvent('control-before-display-page', function(adapter){
+								control.bindEvent('control-before-display-page', function (adapter) {
 
 									control = null;
 
 									var parentValue = adapter.getParentValue();
 
 									// you can choose "other" location only if parentNode is not root and is selectable
-									if(parentValue == this.getOption('rootNodeValue') || !this.checkCanSelectItem(parentValue))
+									if (parentValue == this.getOption('rootNodeValue') || !this.checkCanSelectItem(parentValue))
 										return;
 
 									var controlInApater = adapter.getControl();
 
-									if(typeof controlInApater.vars.cache.nodes['other'] == 'undefined')
-									{
+									if (typeof controlInApater.vars.cache.nodes['other'] == 'undefined') {
 										controlInApater.fillCache([{
-											CODE:		'other', 
-											DISPLAY:	ctx.options.messages.otherLocation, 
-											IS_PARENT:	false,
-											VALUE:		'other'
+											CODE: 'other',
+											DISPLAY: ctx.options.messages.otherLocation,
+											IS_PARENT: false,
+											VALUE: 'other'
 										}], {
-											modifyOrigin:			true,
-											modifyOriginPosition:	'prepend'
+											modifyOrigin: true,
+											modifyOriginPosition: 'prepend'
 										});
 									}
 								});
 
-								townInputFlag = BX('LOCATION_ALT_PROP_DISPLAY_MANUAL['+parseInt(k)+']');
+								townInputFlag = BX('LOCATION_ALT_PROP_DISPLAY_MANUAL[' + parseInt(k) + ']');
 
-								control.bindEvent('after-select-real-value', function(){
+								control.bindEvent('after-select-real-value', function () {
 
 									// some location chosen
-									if(BX.type.isDomNode(townInputFlag))
+									if (BX.type.isDomNode(townInputFlag))
 										townInputFlag.value = '0';
 								});
-								control.bindEvent('after-select-pseudo-value', function(){
+								control.bindEvent('after-select-pseudo-value', function () {
 
 									// option "other location" chosen
-									if(BX.type.isDomNode(townInputFlag))
+									if (BX.type.isDomNode(townInputFlag))
 										townInputFlag.value = '1';
 								});
 
 								// when user click at default location or call .setValueByLocation*()
-								control.bindEvent('before-set-value', function(){
-									if(BX.type.isDomNode(townInputFlag))
+								control.bindEvent('before-set-value', function () {
+									if (BX.type.isDomNode(townInputFlag))
 										townInputFlag.value = '0';
 								});
 
 								// restore "other location" label on the last control
-								if(BX.type.isDomNode(townInputFlag) && townInputFlag.value == '1'){
+								if (BX.type.isDomNode(townInputFlag) && townInputFlag.value == '1') {
 
 									// a little hack: set "other location" text display
 									adapter = control.getAdapterAtPosition(control.getStackSize() - 1);
 
-									if(typeof adapter != 'undefined' && adapter !== null)
+									if (typeof adapter != 'undefined' && adapter !== null)
 										adapter.setValuePair('other', ctx.options.messages.otherLocation);
 								}
 
@@ -243,7 +235,7 @@ BX.saleOrderAjax = {
 			BX.Sale.OrderAjaxComponent.locationsCompletion();
 	},
 
-	checkMode: function(propId, mode){
+	checkMode: function (propId, mode) {
 
 		//if(typeof this.modes[propId] == 'undefined')
 		//	this.modes[propId] = {};
@@ -251,14 +243,14 @@ BX.saleOrderAjax = {
 		//if(typeof this.modes[propId] != 'undefined' && this.modes[propId][mode])
 		//	return true;
 
-		if(mode == 'altLocationChoosen'){
+		if (mode == 'altLocationChoosen') {
 
-			if(this.checkAbility(propId, 'canHaveAltLocation')){
+			if (this.checkAbility(propId, 'canHaveAltLocation')) {
 
 				var input = this.getInputByPropId(this.properties[propId].altLocationPropId);
 				var altPropId = this.properties[propId].altLocationPropId;
 
-				if(input !== false && input.value.length > 0 && !input.disabled && this.properties[altPropId].valueSource != 'default'){
+				if (input !== false && input.value.length > 0 && !input.disabled && this.properties[altPropId].valueSource != 'default') {
 
 					//this.modes[propId][mode] = true;
 					return true;
@@ -269,29 +261,29 @@ BX.saleOrderAjax = {
 		return false;
 	},
 
-	checkAbility: function(propId, ability){
+	checkAbility: function (propId, ability) {
 
-		if(typeof this.properties[propId] == 'undefined')
+		if (typeof this.properties[propId] == 'undefined')
 			this.properties[propId] = {};
 
-		if(typeof this.properties[propId].abilities == 'undefined')
+		if (typeof this.properties[propId].abilities == 'undefined')
 			this.properties[propId].abilities = {};
 
-		if(typeof this.properties[propId].abilities != 'undefined' && this.properties[propId].abilities[ability])
+		if (typeof this.properties[propId].abilities != 'undefined' && this.properties[propId].abilities[ability])
 			return true;
 
-		if(ability == 'canHaveAltLocation'){
+		if (ability == 'canHaveAltLocation') {
 
-			if(this.properties[propId].type == 'LOCATION'){
+			if (this.properties[propId].type == 'LOCATION') {
 
 				// try to find corresponding alternate location prop
-				if(typeof this.properties[propId].altLocationPropId != 'undefined' && typeof this.properties[this.properties[propId].altLocationPropId]){
+				if (typeof this.properties[propId].altLocationPropId != 'undefined' && typeof this.properties[this.properties[propId].altLocationPropId]) {
 
 					var altLocPropId = this.properties[propId].altLocationPropId;
 
-					if(typeof this.properties[propId].control != 'undefined' && this.properties[propId].control.getSysCode() == 'slst'){
+					if (typeof this.properties[propId].control != 'undefined' && this.properties[propId].control.getSysCode() == 'slst') {
 
-						if(this.getInputByPropId(altLocPropId) !== false){
+						if (this.getInputByPropId(altLocPropId) !== false) {
 							this.properties[propId].abilities[ability] = true;
 							return true;
 						}
@@ -304,14 +296,14 @@ BX.saleOrderAjax = {
 		return false;
 	},
 
-	getInputByPropId: function(propId){
-		if(typeof this.properties[propId].input != 'undefined')
+	getInputByPropId: function (propId) {
+		if (typeof this.properties[propId].input != 'undefined')
 			return this.properties[propId].input;
 
 		var row = this.getRowByPropId(propId);
-		if(BX.type.isElementNode(row)){
+		if (BX.type.isElementNode(row)) {
 			var input = row.querySelector('input[type="text"]');
-			if(BX.type.isElementNode(input)){
+			if (BX.type.isElementNode(input)) {
 				this.properties[propId].input = input;
 				return input;
 			}
@@ -320,13 +312,13 @@ BX.saleOrderAjax = {
 		return false;
 	},
 
-	getRowByPropId: function(propId){
+	getRowByPropId: function (propId) {
 
-		if(typeof this.properties[propId].row != 'undefined')
+		if (typeof this.properties[propId].row != 'undefined')
 			return this.properties[propId].row;
 
-		var row = this.controls.scope.querySelector('[data-property-id-row="'+propId+'"]');
-		if(BX.type.isElementNode(row)){
+		var row = this.controls.scope.querySelector('[data-property-id-row="' + propId + '"]');
+		if (BX.type.isElementNode(row)) {
 			this.properties[propId].row = row;
 			return row;
 		}
@@ -334,39 +326,38 @@ BX.saleOrderAjax = {
 		return false;
 	},
 
-	getAltLocPropByRealLocProp: function(propId){
-		if(typeof this.properties[propId].altLocationPropId != 'undefined')
+	getAltLocPropByRealLocProp: function (propId) {
+		if (typeof this.properties[propId].altLocationPropId != 'undefined')
 			return this.properties[this.properties[propId].altLocationPropId];
 
 		return false;
 	},
 
-	toggleProperty: function(propId, way, dontModifyRow){
+	toggleProperty: function (propId, way, dontModifyRow) {
 
 		var prop = this.properties[propId];
 
-		if(typeof prop.row == 'undefined')
+		if (typeof prop.row == 'undefined')
 			prop.row = this.getRowByPropId(propId);
 
-		if(typeof prop.input == 'undefined')
+		if (typeof prop.input == 'undefined')
 			prop.input = this.getInputByPropId(propId);
 
-		if(!way){
-			if(!dontModifyRow)
+		if (!way) {
+			if (!dontModifyRow)
 				BX.hide(prop.row);
 			prop.input.disabled = true;
-		}else{
-			if(!dontModifyRow)
+		} else {
+			if (!dontModifyRow)
 				BX.show(prop.row);
 			prop.input.disabled = false;
 		}
 	},
 
-	submitFormProxy: function(item, control)
-	{
+	submitFormProxy: function (item, control) {
 		var propId = false;
-		for(var k in this.properties){
-			if(typeof this.properties[k].control != 'undefined' && this.properties[k].control == control){
+		for (var k in this.properties) {
+			if (typeof this.properties[k].control != 'undefined' && this.properties[k].control == control) {
 				propId = k;
 				break;
 			}
@@ -374,29 +365,29 @@ BX.saleOrderAjax = {
 
 		// turning LOCATION_ALT_PROP_DISPLAY_MANUAL on\off
 
-		if(item != 'other'){
+		if (item != 'other') {
 
-			if(this.BXCallAllowed){
+			if (this.BXCallAllowed) {
 
 				this.BXCallAllowed = false;
-				setTimeout(function(){BX.Sale.OrderAjaxComponent.sendRequest()}, 20);
+				setTimeout(function () { BX.Sale.OrderAjaxComponent.sendRequest() }, 20);
 			}
 
 		}
 	},
 
-	getPreviousAdapterSelectedNode: function(control, adapter){
+	getPreviousAdapterSelectedNode: function (control, adapter) {
 
 		var index = adapter.getIndex();
 		var prevAdapter = control.getAdapterAtPosition(index - 1);
 
-		if(typeof prevAdapter !== 'undefined' && prevAdapter != null){
+		if (typeof prevAdapter !== 'undefined' && prevAdapter != null) {
 			var prevValue = prevAdapter.getControl().getValue();
 
-			if(typeof prevValue != 'undefined'){
+			if (typeof prevValue != 'undefined') {
 				var node = control.getNodeByValue(prevValue);
 
-				if(typeof node != 'undefined')
+				if (typeof node != 'undefined')
 					return node;
 
 				return false;
@@ -405,10 +396,8 @@ BX.saleOrderAjax = {
 
 		return false;
 	},
-	getLocationsByZip: function(value, successCallback, notFoundCallback)
-	{
-		if(typeof this.indexCache[value] != 'undefined')
-		{
+	getLocationsByZip: function (value, successCallback, notFoundCallback) {
+		if (typeof this.indexCache[value] != 'undefined') {
 			successCallback.apply(this, [this.indexCache[value]]);
 			return;
 		}
@@ -423,27 +412,25 @@ BX.saleOrderAjax = {
 			processData: true,
 			emulateOnload: true,
 			start: true,
-			data: {'ACT': 'GET_LOCS_BY_ZIP', 'ZIP': value},
+			data: { 'ACT': 'GET_LOCS_BY_ZIP', 'ZIP': value },
 			//cache: true,
-			onsuccess: function(result){
-				if(result.result)
-				{
+			onsuccess: function (result) {
+				if (result.result) {
 					ctx.indexCache[value] = result.data;
 					successCallback.apply(ctx, [result.data]);
 				}
-				else
-				{
+				else {
 					notFoundCallback.call(ctx);
 				}
 			},
-			onfailure: function(type, e){
+			onfailure: function (type, e) {
 				// on error do nothing
 			}
 		});
 	}
 };
 
-document.addEventListener('DOMContentLoaded', function() {
+document.addEventListener('DOMContentLoaded', function () {
 	let fakeLocationInput = document.querySelector('.bx-ui-sls-fake');
 	let deliveryBlock = document.getElementById('bx-soa-delivery');
 
@@ -470,4 +457,23 @@ document.addEventListener('DOMContentLoaded', function() {
 			deliveryBlock.style.display = 'none';
 		});
 	}
+
+	const inputs = document.querySelectorAll('#bx-soa-properties input');
+	const textarea = document.querySelector('#bx-soa-properties textarea');
+
+	inputs.forEach((input) => {
+		input.addEventListener('input', function () {
+			this.value = this.value.replace(/\s+/g, ' ');
+			if (this.value[0] == ' ') {
+				this.value = this.value.slice(1);
+			}
+		});
+	});
+
+	textarea.addEventListener('input', function () {
+		this.value = this.value.replace(/\s+/g, ' ');
+		if (this.value[0] == ' ') {
+			this.value = this.value.slice(1);
+		}
+	});
 });
