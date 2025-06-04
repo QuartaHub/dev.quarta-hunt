@@ -1171,6 +1171,14 @@
   cursor: pointer;
 }
 
+.bx-soa-location-input-container{
+  position: relative;
+}
+
+.bx-soa-tooltip.tooltip.top{
+  top: -50px;
+}
+
 @media (max-width: 1300px) {
   #bx-soa-order {
     display: flex;
