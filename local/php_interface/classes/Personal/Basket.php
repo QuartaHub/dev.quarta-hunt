@@ -35,7 +35,7 @@ class Basket
 {
     /** @var BasketBase */
     private $basket;
-    private $user;
+    protected $user;
 
 
     public function __construct()
@@ -419,7 +419,7 @@ class Basket
         return floatval(VatTable::getById($vatId)->fetch()['RATE']) / 100;
     }
 
-    private function isProductAvailable(int $productId, int $quantity): bool
+    protected function isProductAvailable(int $productId, int $quantity): bool
     {
         $basketItem = $this->getBasketItem($productId);
         $element = CIBlockElement::GetList([], ['ID' => $productId], ['QUANTITY'])->GetNext();
