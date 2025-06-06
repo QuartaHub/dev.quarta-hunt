@@ -190,7 +190,15 @@ if ($useDefaultMessages || !isset($arParams['MESS_ADDITIONAL_PROPS'])) {
 }
 
 if ($useDefaultMessages || !isset($arParams['MESS_USE_COUPON'])) {
-	$arParams['MESS_USE_COUPON'] = Loc::getMessage('USE_COUPON_DEFAULT');
+	$arParams['MESS_USE_COUPON'] = Loc::getMessage('PROMO_BLOCK_TITLE');//Loc::getMessage('USE_COUPON_DEFAULT');
+}
+
+if ($useDefaultMessages || !isset($arParams['MESS_COUPON_ACTIVE'])) {
+	$arParams['MESS_COUPON_ACTIVE'] = Loc::getMessage('MESS_COUPON_ACTIVE');
+}
+
+if ($useDefaultMessages || !isset($arParams['MESS_COUPON_PLACEHOLDER'])) {
+	$arParams['MESS_COUPON_PLACEHOLDER'] = Loc::getMessage('MESS_COUPON_PLACEHOLDER');
 }
 
 if ($useDefaultMessages || !isset($arParams['MESS_COUPON'])) {
@@ -402,7 +410,7 @@ if ((string)$request->get('ORDER_ID') !== '') {
 				endif;
 				?>
 				<div id="bx-promo-block" class="bx-soa-section bx-active">
-					<div class="bx-soa-section-title-container">
+					<?/*div class="bx-soa-section-title-container">
 						<h2 class="bx-soa-section-title col-sm-9">
 							<?= Loc::getMessage('PROMO_BLOCK_TITLE') ?>
 						</h2>
@@ -414,10 +422,10 @@ if ((string)$request->get('ORDER_ID') !== '') {
 									<input class="form-control bx-ios-fix" type="text" placeholder="Введите промокод">
 									<div id="activate-coupon"><?= Loc::getMessage('ACTIVATE_COUPON_BTN') ?></div>
 								</div>
-								<span class="bx-soa-coupon-item"></span>
+								<span class="bx-soa-coupon-item 3"></span>
 							</div>
 						</div>
-					</div>
+					</div*/?>
 				</div>
 				<!--	BUYER PROPS BLOCK	-->
 				<div id="bx-soa-properties" data-visited="false" class="bx-soa-section bx-active">
