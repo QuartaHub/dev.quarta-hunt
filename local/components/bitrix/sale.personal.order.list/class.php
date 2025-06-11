@@ -169,10 +169,10 @@ class CBitrixPersonalOrderListComponent extends CBitrixComponent
 
 			// for compatibility reasons: by default AuthForm() is shown in class.php, as it used to be.
 			// BUT the better way is to show it in template.php, as it required by MVC paradigm
-			if(!$this->arParams['AUTH_FORM_IN_TEMPLATE'])
+			/*if(!$this->arParams['AUTH_FORM_IN_TEMPLATE'])
 			{
 				$APPLICATION->AuthForm($msg, false, false, 'N', false);
-			}
+			}*/
 
 			throw new Main\SystemException($msg, self::E_NOT_AUTHORIZED);
 		}
