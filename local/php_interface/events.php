@@ -41,6 +41,6 @@ $eventManager->addEventHandler(
 // 124576 - для заявок с сайта на лицензионную продукцию 
 $eventManager->addEventHandler(
     'iblock',
-    'OnBeforeIBlockElementAdd',
+    'OnAfterIBlockElementAdd',
     ['CustomEvents\LicenseHandler', 'IBlockElementAddHandler']
 );

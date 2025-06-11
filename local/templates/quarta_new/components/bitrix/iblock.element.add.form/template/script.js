@@ -1,6 +1,7 @@
 class LicensePopup {
     constructor() {
         this.formWrap = document.querySelector(".bid-license__wrapper");
+        this.formWrapOpen = document.querySelector(".bid-license__wrapper p");
         this.formWrapBtn = document.querySelectorAll('.bid-license__open');
         this.formWrapClose = document.querySelector('.bid-license__close');
 
@@ -21,6 +22,10 @@ class LicensePopup {
             this.formWrapClose.addEventListener('click', () => {
                 this.closeLicenseModal();
             });
+        }
+
+        if(this.formWrapOpen){
+            this.openLicenseModal();
         }
     }
 

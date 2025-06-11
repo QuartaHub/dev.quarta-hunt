@@ -32,7 +32,9 @@ class LicenseHandler
             );
 
             if ($section = $rsSections->Fetch()) {
-                $arFields['IBLOCK_SECTION_ID'][] = $section['ID'];
+                $arSects[] = $section['ID'];
+                \CIBlockElement::SetElementSection($arFields["ID"], $arSects);
+                \Bitrix\Iblock\PropertyIndex\Manager::updateElementIndex($arSects, $arFields["ID"]);
             }
 
             $arProps = [];
@@ -61,7 +63,7 @@ class LicenseHandler
         \Bitrix\Main\Mail\Event::sendImmediate(array(
             "EVENT_NAME" => "BID_LICENSE_PRODUCT",
             "LID" => $mailFields['SITE_ID'],
-            "C_FIELDS" => $mailFields['SITE_ID']
+            "C_FIELDS" => $mailFields
         ));
     }
 }
