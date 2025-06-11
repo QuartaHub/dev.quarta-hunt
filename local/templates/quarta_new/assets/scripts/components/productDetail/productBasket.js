@@ -180,7 +180,7 @@ class ProductBasket {
             showMaxQuantity = 9999;
         }
 
-        if (showMaxQuantity > maxQuantity) {
+        if (parseInt(showMaxQuantity) > maxQuantity) {
             showMaxQuantity = maxQuantity;
         }
 
@@ -188,7 +188,7 @@ class ProductBasket {
             selectorMinusButton,
             selectorPlusButton,
             selectorInput,
-            maxValue: showMaxQuantity,
+            maxValue: showMaxQuantity ? showMaxQuantity : quantity,
             blockChangeState: true,
             onPlus: (value, counterInstance) => {
                 this.handleSetQuantityForProduct({id, quantity, value: value + 1, counterInstance});
