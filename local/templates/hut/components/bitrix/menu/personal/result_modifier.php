@@ -2,14 +2,20 @@
 
 global $APPLICATION;
 
-foreach($arResult as &$arItem):
-    if($arItem['LINK'] == '/exit'){
-        $arItem['LINK'] = $APPLICATION->GetCurPageParam("logout=yes&".bitrix_sessid_get(), [
-            "login",
-            "logout",
-            "register",
-            "forgot_password",
-            "change_password"]
-          );
+foreach ($arResult as $key => &$arItem):
+    if ($arItem['LINK'] == '/exit' && $USER->IsAuthorized()) {
+        $arItem['LINK'] = $APPLICATION->GetCurPageParam(
+            "logout=yes&" . bitrix_sessid_get(),
+            [
+                "login",
+                "logout",
+                "register",
+                "forgot_password",
+                "change_password"
+            ]
+        );
+    }
+    if ($arItem['LINK'] == '/exit' && !$USER->IsAuthorized()) {
+        $arItem['PERMISSION'] = 'N';
     }
 endforeach;
