@@ -5766,7 +5766,11 @@ BX.namespace('BX.Sale.OrderAjaxComponent');
 				if (item.PRICE <= 0) {
 					itemPrice = 'Бесплатно';
 				}
-
+				
+				if(item.DELIVERY_DISCOUNT_PRICE == 0){
+					itemPrice = 'Бесплатно';
+				}
+				
 				labelNodes.push(
 					BX.create('DIV', {
 						props: {className: 'bx-soa-pp-delivery-cost'},
@@ -8181,8 +8185,12 @@ BX.namespace('BX.Sale.OrderAjaxComponent');
 					curDelivery && typeof curDelivery.DELIVERY_DISCOUNT_PRICE !== 'undefined'
 					&& parseFloat(curDelivery.PRICE) > parseFloat(curDelivery.DELIVERY_DISCOUNT_PRICE)
 				)
-				{
-					deliveryValue += '<br><span class="bx-price-old">' + curDelivery.PRICE_FORMATED + '</span>';
+				{	
+					console.log(params.free);
+					if(params.free !== true){
+						deliveryValue += '<br><span class="bx-price-old">' + curDelivery.PRICE_FORMATED + '</span>';
+					}
+					
 				}
 			}
 

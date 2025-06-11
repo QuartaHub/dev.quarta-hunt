@@ -599,6 +599,10 @@
   margin-bottom: 16px;
 }
 
+.bx-soa-cart-total .bx-soa-cart-total-line .bx-price-old{
+  text-decoration: line-through;
+}
+
 .bx-soa-cart-total .bx-soa-cart-total-line::after {
   content: "";
   display: block;
