@@ -225,36 +225,36 @@ if (!defined('B_PROLOG_INCLUDED') || B_PROLOG_INCLUDED !== true) {
     </div>
 
     <?php
-        $APPLICATION->IncludeComponent(
-            "custom:arrow.up",
-            "",
-            []
-        );
+    $APPLICATION->IncludeComponent(
+        "custom:arrow.up",
+        "",
+        []
+    );
     ?>
 
     <?php
-        if ($APPLICATION->get_cookie('COOKIE_APPLY') != 'Y') {
+    if ($APPLICATION->get_cookie('COOKIE_APPLY') != 'Y') {
+        $APPLICATION->IncludeComponent(
+            "custom:form.cookies",
+            "",
+            []
+        );
+    }
+    ?>
+
+    <?php
+    if (IsModuleInstalled('promo2page')) {
+        if ($APPLICATION->get_cookie('COOKIE_APPLY') == 'Y') {
             $APPLICATION->IncludeComponent(
-                "custom:form.cookies",
+                "custom:promo.page",
                 "",
                 []
             );
         }
+    }
     ?>
 
-    <?php
-        if (IsModuleInstalled('promo2page')) {
-            if ($APPLICATION->get_cookie('COOKIE_APPLY') == 'Y') {
-                $APPLICATION->IncludeComponent(
-                    "custom:promo.page",
-                    "",
-                    []
-                );
-            }
-        }
-    ?>
-   
-    <?$APPLICATION->IncludeComponent(
+    <? $APPLICATION->IncludeComponent(
         "bitrix:main.include",
         "",
         [
@@ -262,11 +262,57 @@ if (!defined('B_PROLOG_INCLUDED') || B_PROLOG_INCLUDED !== true) {
             "PATH" => "/include/footer/compare_popup.php",
         ],
         false,
-    );?>
-    
+    ); ?>
 
 </footer>
-
+<div class="bid-license__wrapper">
+    <? $APPLICATION->IncludeComponent(
+	"bitrix:iblock.element.add.form", 
+	"template", 
+	array(
+		"CUSTOM_TITLE_DATE_ACTIVE_FROM" => "",
+		"CUSTOM_TITLE_DATE_ACTIVE_TO" => "",
+		"CUSTOM_TITLE_DETAIL_PICTURE" => "",
+		"CUSTOM_TITLE_DETAIL_TEXT" => "",
+		"CUSTOM_TITLE_IBLOCK_SECTION" => "",
+		"CUSTOM_TITLE_NAME" => "",
+		"CUSTOM_TITLE_PREVIEW_PICTURE" => "",
+		"CUSTOM_TITLE_PREVIEW_TEXT" => "",
+		"CUSTOM_TITLE_TAGS" => "",
+		"DEFAULT_INPUT_SIZE" => "30",
+		"DETAIL_TEXT_USE_HTML_EDITOR" => "N",
+		"ELEMENT_ASSOC" => "CREATED_BY",
+		"GROUPS" => array(
+		),
+		"IBLOCK_ID" => "113",
+		"IBLOCK_TYPE" => "1c_catalog",
+		"LEVEL_LAST" => "Y",
+		"LIST_URL" => "",
+		"MAX_FILE_SIZE" => "0",
+		"MAX_LEVELS" => "100000",
+		"MAX_USER_ENTRIES" => "100000",
+		"PREVIEW_TEXT_USE_HTML_EDITOR" => "N",
+		"PROPERTY_CODES" => array(
+			0 => "1633",
+			1 => "1634",
+			2 => "1635",
+			3 => "1636",
+			4 => "NAME",
+		),
+		"PROPERTY_CODES_REQUIRED" => array(
+		),
+		"RESIZE_IMAGES" => "N",
+		"SEF_MODE" => "N",
+		"STATUS" => "ANY",
+		"STATUS_NEW" => "N",
+		"USER_MESSAGE_ADD" => "",
+		"USER_MESSAGE_EDIT" => "",
+		"USE_CAPTCHA" => "N",
+		"COMPONENT_TEMPLATE" => "template"
+	),
+	false
+); ?>
+</div>
 </div>
 
 <?php

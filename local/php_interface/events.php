@@ -15,7 +15,6 @@ $eventManager->addEventHandler(
     ["CustomEvents\OnBeforeIBlockElementUpdate", "OnBeforeIBlockElementUpdateHandler"]
 );
 
-
 //HUT размеры для сайта, доработка по обмену.
 // Обмен не определяет сайт, поэтому евент должен быть в сайте по умолчнию
 $eventManager->addEventHandler(
@@ -37,4 +36,11 @@ $eventManager->addEventHandler(
         'CustomEvents\OnAfterIBlockElementUpdate',
         'OnAfterIBlockElementUpdateHandler'
     ]
+);
+
+// 124576 - для заявок с сайта на лицензионную продукцию 
+$eventManager->addEventHandler(
+    'iblock',
+    'OnAfterIBlockElementAdd',
+    ['CustomEvents\LicenseHandler', 'IBlockElementAddHandler']
 );

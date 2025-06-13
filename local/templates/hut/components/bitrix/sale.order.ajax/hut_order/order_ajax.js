@@ -161,13 +161,14 @@ BX.namespace('BX.Sale.OrderAjaxComponent');
 			{
 				this.initUserConsent();
 			}
+
 		},
 
 		/**
 		 * Send ajax request with order data and executes callback by action
 		 */
 		sendRequest: function(action, actionData)
-		{
+		{	
 			var form;
 
 			if (!this.startLoader())
@@ -270,6 +271,10 @@ BX.namespace('BX.Sale.OrderAjaxComponent');
 					}, this)
 				});
 			}
+			
+			//if(document.querySelector('#bx-promo-block')){
+			//	document.querySelector('#bx-promo-block .bx-soa-coupon').remove();
+			//}
 		},
 
 		getData: function(action, actionData)
@@ -284,7 +289,7 @@ BX.namespace('BX.Sale.OrderAjaxComponent');
 
 			data[this.params.ACTION_VARIABLE] = action;
 
-			if (action === 'enterCoupon' || action === 'removeCoupon')
+			if (action === 'enterCoupon' || action === 'removeCoupon'){}
 				data.coupon = actionData;
 
 			return data;
@@ -3316,6 +3321,10 @@ BX.namespace('BX.Sale.OrderAjaxComponent');
 					this.editCoupons(basketContent);
 				}
 
+				if(document.querySelector('#bx-promo-block')){
+					this.editCoupons(document.querySelector('#bx-promo-block'));
+				}
+
 				this.getBlockFooter(basketContent);
 
 				BX.bind(
@@ -4091,6 +4100,7 @@ BX.namespace('BX.Sale.OrderAjaxComponent');
 
 		editCoupons: function(basketItemsNode)
 		{
+			
 			var couponsList = this.getCouponsList(true),
 				couponsLabel = this.getCouponsLabel(true),
 				couponsBlock = BX.create('DIV', {
@@ -4102,7 +4112,8 @@ BX.namespace('BX.Sale.OrderAjaxComponent');
 								BX.create('INPUT', {
 									props: {
 										className: 'form-control bx-ios-fix',
-										type: 'text'
+										type: 'text',
+										placeholder: this.params.MESS_COUPON_PLACEHOLDER
 									},
 									events: {
 										change: BX.delegate(function(event){
@@ -4114,14 +4125,37 @@ BX.namespace('BX.Sale.OrderAjaxComponent');
 											}
 										}, this)
 									}
+								}),
+								BX.create('div', {
+									props: {
+										id: 'activate-coupon',
+									},
+									text: this.params.MESS_COUPON_ACTIVE
+									/*events: {
+										change: BX.delegate(function(event){
+											var newCoupon = BX.getEventTarget(event);
+											if (newCoupon && newCoupon.value)
+											{
+												this.sendRequest('enterCoupon', newCoupon.value);
+												newCoupon.value = '';
+											}
+										}, this)
+									}*/
 								})
 							]
 						}),
-						BX.create('SPAN', {props: {className: 'bx-soa-coupon-item'}, children: couponsList})
+						BX.create('DIV', {props: {className: 'bx-soa-coupon-item'}, children: couponsList})
 					]
 				});
+			let counter = 0;
+			document.querySelectorAll('.bx-soa-coupon').forEach((coupon) => {
+			  	counter++;
+				if(counter = 1){
+					coupon.remove();
+				}
+			});
 
-			basketItemsNode.appendChild(
+			basketItemsNode.append(
 				BX.create('DIV', {
 					props: {className: 'bx-soa-coupon'},
 					children: [
@@ -4130,24 +4164,6 @@ BX.namespace('BX.Sale.OrderAjaxComponent');
 					]
 				})
 			);
-		},
-
-		addEventListenerNewCoupon: function ()
-		{
-			let newCouponBlock = document.querySelector('#bx-promo-block input');
-			let activateCouponBtn = document.getElementById('activate-coupon');
-
-			if (newCouponBlock && activateCouponBtn) {
-				let that = this;
-				activateCouponBtn.addEventListener('click', function (event) {
-					let couponValue = newCouponBlock.value;
-
-					if (couponValue) {
-						that.sendRequest('enterCoupon', couponValue);
-						newCouponBlock.value = '';
-					}
-				});
-			}
 		},
 
 		editCouponsFade: function(basketItemsNode)
@@ -4160,7 +4176,7 @@ BX.namespace('BX.Sale.OrderAjaxComponent');
 
 			if (couponsList.length)
 			{
-				couponsLabel = this.getCouponsLabel(false);
+				/*couponsLabel = this.getCouponsLabel(false);
 				couponsBlock = BX.create('DIV', {
 					props: {className: 'bx-soa-coupon-block'},
 					children: [
@@ -4175,20 +4191,20 @@ BX.namespace('BX.Sale.OrderAjaxComponent');
 						})
 					]
 				});
-
+				
 				basketItemsNode.appendChild(
 					BX.create('DIV', {
 						props: {className: 'bx-soa-coupon bx-soa-coupon-item-fixed'},
 						children: [couponsBlock]
 					})
-				);
+				);*/
 			}
 		},
 
 		getCouponsList: function(active)
 		{
 			var couponsList = [], i;
-
+			
 			for (i = 0; i < this.result.COUPON_LIST.length; i++)
 			{
 				if (active || (!active && this.result.COUPON_LIST[i].JS_STATUS == 'APPLIED'))
@@ -4217,7 +4233,8 @@ BX.namespace('BX.Sale.OrderAjaxComponent');
 			{
 				case 'ENTERED': couponItem = 'used'; tooltip = 'warning'; break;
 				case 'BAD': couponItem = tooltip = 'danger'; break;
-				default: couponItem = tooltip  = 'success';
+				default:
+					 couponItem = tooltip  = 'success';
 			}
 
 			return BX.create('STRONG', {
@@ -4256,11 +4273,11 @@ BX.namespace('BX.Sale.OrderAjaxComponent');
 
 		getCouponsLabel: function(active)
 		{
-			return BX.create('DIV', {
-				props: {className: 'bx-soa-coupon-label'},
+			return BX.create('h2', {
+				props: {className: 'bx-soa-section-title col-sm-9'},
 				children: active
-					? [BX.create('LABEL', {html: this.params.MESS_USE_COUPON + ':'})]
-					: [this.params.MESS_COUPON + ':']
+					? [BX.create('LABEL', {html: this.params.MESS_USE_COUPON + ''})]
+					: [this.params.MESS_COUPON + '']
 			});
 		},
 
@@ -4288,6 +4305,24 @@ BX.namespace('BX.Sale.OrderAjaxComponent');
 					BX.remove(couponNodes[i]);
 				}
 			}
+		},
+
+		addEventListenerNewCoupon: function ()
+		{/*
+			let newCouponBlock = document.querySelector('#bx-promo-block input');
+			let activateCouponBtn = document.getElementById('activate-coupon');
+
+			if (newCouponBlock && activateCouponBtn) {
+				let that = this;
+				activateCouponBtn.addEventListener('click', function (event) {
+					let couponValue = newCouponBlock.value;
+
+					if (couponValue) {
+						that.sendRequest('enterCoupon', couponValue);
+						newCouponBlock.value = '';
+					}
+				});
+			}*/
 		},
 
 		editRegionBlock: function(active)
@@ -4964,6 +4999,7 @@ BX.namespace('BX.Sale.OrderAjaxComponent');
 				if (this.params.SHOW_COUPONS_PAY_SYSTEM == 'Y')
 					this.editCoupons(paySystemContent);
 
+				
 				this.getBlockFooter(paySystemContent);
 			}
 		},
