@@ -3,6 +3,7 @@
 use Bitrix\Main;
 use Bitrix\Main\Application;
 use Bitrix\Main\Localization\Loc;
+use CustomEvents\DeliveryStore;
 
 /**
  * @var array $arParams
@@ -281,8 +282,10 @@ switch (LANGUAGE_ID)
 foreach ($arResult['GRID']['ROWS'] as $key => $value) {
 	$quantity += $value['data']['QUANTITY'];
 }
+
 $quantityText = num_declension($quantity, array('товар', 'товара', 'товаров'));
 $orderPriceText = $arResult['ORDER_PRICE_FORMATED'];
+$arResult['JS_DATA']['TOTAL_QURATITY'] = $quantityText;
 
 \Bitrix\Main\UI\Extension::load('ui.fonts.opensans');
 $this->addExternalJs($templateFolder.'/order_ajax.js');
