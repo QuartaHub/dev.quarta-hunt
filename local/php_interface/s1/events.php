@@ -90,6 +90,26 @@ $eventManager->addEventHandler(
 );
 
 /**
+ * Изменение количества товара в зависимости от склада 124572
+ */
+//$eventManager->addEventHandler(
+//    'sale',
+//    'OnSaleComponentOrderJsData',
+//    [
+//        'CustomEvents\DeliveryStore',
+//        'getDeliveryId'
+//    ]
+//);
+$eventManager->addEventHandler(
+    'sale',
+    'OnSaleComponentOrderResultPrepared',
+    [
+        'CustomEvents\DeliveryStore',
+        'getDeliveryId'
+    ]
+);
+
+/**
  * Добавляем округление заказа до рублей при оплате наличными
  */
 $eventManager->addEventHandler(
