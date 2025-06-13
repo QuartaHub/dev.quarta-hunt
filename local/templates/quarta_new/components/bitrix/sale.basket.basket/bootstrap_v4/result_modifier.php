@@ -17,10 +17,6 @@ if (
     $haveLicenceProducts = false;
 
     foreach ($arResult['GRID']['ROWS'] as $basketId => $item) {
-        foreach ($list as $arSectionPath){
-            echo '<pre>';print_r($arSectionPath);echo '</pre>';
-        }
-
         $res = CIBlockElement::GetByID($item['PRODUCT_ID']);
 
         if ($element = $res->GetNext()) {
@@ -28,7 +24,8 @@ if (
 
             if (!empty($sectionsList)) {
                 foreach ($sectionsList as $section) {
-                    $rsSection = CIBlockSection::GetList([],
+                    $rsSection = CIBlockSection::GetList(
+                        [],
                         [
                             'ID' => $section['ID'],
                             'IBLOCK_ID' => CATALOG_IBLOCK_ID

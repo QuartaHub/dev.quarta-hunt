@@ -20,10 +20,41 @@ $result['BASKET_ITEM_RENDER_DATA'] = array();
 
 foreach ($this->basketItems as $row)
 {
+    $element = CIBlockElement::GetByID($row['PRODUCT_ID']);
+    $showMaxQuantity = DEFAULT_MAX_SHOW_PRODUCT;
+
+    if ($elem = $element->GetNext()) {
+        $sectionsList = CIBlockSection::GetNavChain(CATALOG_IBLOCK_ID, $elem['IBLOCK_SECTION_ID'], ['ID'], true);
+
+        if (!empty($sectionsList)) {
+            $sectionsList = array_reverse($sectionsList);
+
+            foreach ($sectionsList as $section) {
+                $rsSection = CIBlockSection::GetList(
+                    [],
+                    [
+                        'ID' => $section['ID'],
+                        'IBLOCK_ID' => CATALOG_IBLOCK_ID
+                    ],
+                    false,
+                    [
+                        'ID',
+                        'UF_SHOW_MAX_QUANTITY'
+                    ]
+                )->GetNext();
+
+                if ($rsSection['UF_SHOW_MAX_QUANTITY'] || $rsSection['UF_SHOW_MAX_QUANTITY'] === '0') {
+                    $showMaxQuantity = $rsSection['UF_SHOW_MAX_QUANTITY'];
+                    break;
+                }
+            }
+        }
+    }
+
 	$rowData = array(
 		'ID' => $row['ID'],
 		'PRODUCT_ID' => $row['PRODUCT_ID'],
-		'NAME' => isset($row['~NAME']) ? $row['~NAME'] : $row['NAME'],
+		'NAME' => $row['~NAME'] ?? $row['NAME'],
 		'QUANTITY' => $row['QUANTITY'],
 		'PROPS' => $row['PROPS'],
 		'PROPS_ALL' => $row['PROPS_ALL'],
@@ -46,7 +77,7 @@ foreach ($this->basketItems as $row)
 		'SUM_FULL_PRICE_FORMATED' => $row['SUM_FULL_PRICE_FORMATED'],
 		'SUM_DISCOUNT_PRICE' => $row['SUM_DISCOUNT_PRICE'],
 		'SUM_DISCOUNT_PRICE_FORMATED' => $row['SUM_DISCOUNT_PRICE_FORMATED'],
-		'MEASURE_RATIO' => isset($row['MEASURE_RATIO']) ? $row['MEASURE_RATIO'] : 1,
+		'MEASURE_RATIO' => $row['MEASURE_RATIO'] ?? 1,
 		'MEASURE_TEXT' => $row['MEASURE_TEXT'],
 		'AVAILABLE_QUANTITY' => $row['AVAILABLE_QUANTITY'],
 		'CHECK_MAX_QUANTITY' => $row['CHECK_MAX_QUANTITY'],
@@ -60,9 +91,8 @@ foreach ($this->basketItems as $row)
 		'LABEL_VALUES' => array(),
         'ARTICLE_TITLE' => '',
         'ARTICLE_TEXT' => '',
-		'BRAND' => isset($row[$this->arParams['BRAND_PROPERTY'].'_VALUE'])
-			? $row[$this->arParams['BRAND_PROPERTY'].'_VALUE']
-			: '',
+		'BRAND' => $row[$this->arParams['BRAND_PROPERTY'] . '_VALUE'] ?? '',
+        'SHOW_MAX_QUANTITY' => $showMaxQuantity
 	);
 
 	// show price including ratio
