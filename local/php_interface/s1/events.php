@@ -90,6 +90,26 @@ $eventManager->addEventHandler(
 );
 
 /**
+ * Изменение количества товара в зависимости от склада 124572
+ */
+//$eventManager->addEventHandler(
+//    'sale',
+//    'OnSaleComponentOrderJsData',
+//    [
+//        'CustomEvents\DeliveryStore',
+//        'getDeliveryId'
+//    ]
+//);
+$eventManager->addEventHandler(
+    'sale',
+    'OnSaleComponentOrderResultPrepared',
+    [
+        'CustomEvents\DeliveryStore',
+        'getDeliveryId'
+    ]
+);
+
+/**
  * Добавляем округление заказа до рублей при оплате наличными
  */
 $eventManager->addEventHandler(
@@ -152,4 +172,23 @@ $eventManager->addEventHandler(
     'main',
     'OnBeforeEventAdd',
     ['CustomEvents\CustomMailEventHandler', 'onBeforeEventAddHandler']
+);
+
+$eventManager->addEventHandler(
+    'sale',
+    'OnSaleOrderSaved',
+    ['CustomEvents\OnSaleOrderSaved', 'deleteProductFromCustomBasket']
+);
+
+// 124576 - для заявок с сайта на лицензионную продукцию
+$eventManager->addEventHandler(
+    'iblock',
+    'OnBeforeIBlockElementAdd',
+    ['CustomEvents\LicenseHandler', 'IBlockElementBeforeAddHandler']
+);
+
+$eventManager->addEventHandler(
+    'iblock',
+    'OnAfterIBlockElementAdd',
+    ['CustomEvents\LicenseHandler', 'IBlockElementAddHandler']
 );

@@ -3,11 +3,13 @@
 include_once $_SERVER["DOCUMENT_ROOT"] . '/bitrix/modules/main/include/prolog_before.php';
 
 use Personal\Basket;
+use Personal\BufferBasket;
 
 $requestBody = json_decode(file_get_contents('php://input'));
 $response = null;
 
 $basket = new Basket();
+$bufferBasket = new BufferBasket();
 
 switch ($requestBody->action) {
     case 'GET':
@@ -27,7 +29,8 @@ switch ($requestBody->action) {
         break;
 
     case 'ADD':
-        $response = $basket->addProductToBasket($requestBody->id, $requestBody->quantity);
+        //$response = $basket->addProductToBasket($requestBody->id, $requestBody->quantity);
+        $response = $bufferBasket->addProductToBufferBasket($requestBody->id, $requestBody->quantity);
         break;
 
     case 'SET_QUANTITY':
@@ -35,7 +38,8 @@ switch ($requestBody->action) {
         break;
 
     case 'DELETE':
-        $response = $basket->deleteProductFromBasket($requestBody->id, $requestBody->quantity);
+        //$response = $basket->deleteProductFromBasket($requestBody->id, $requestBody->quantity);
+        $response = $bufferBasket->deleteProductFromBufferBasket($requestBody->id);
         break;
 
     case 'DELETE_ALL':

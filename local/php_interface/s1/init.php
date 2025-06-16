@@ -49,7 +49,11 @@ Loader::registerAutoLoadClasses(null, [
     'CustomEvents\OnDiscount' => '/local/php_interface/classes/Events/OnDiscount.php',
     'CustomEvents\OnBeforeIBlockElementUpdate' => '/local/php_interface/classes/Events/OnBeforeIBlockElementUpdate.php',
     'CustomEvents\OnOrder' => '/local/php_interface/classes/Events/OnOrder.php',
+    'CustomEvents\DeliveryStore' => '/local/php_interface/classes/Events/DeliveryStore.php',
     'CustomEvents\CustomMailEventHandler' => '/local/php_interface/classes/Events/CustomMailEventHandler.php',
+    'Personal\BufferBasket' => '/local/php_interface/classes/Personal/BufferBasket.php',
+    'CustomEvents\OnSaleOrderSaved' => '/local/php_interface/classes/Events/OnSaleOrderSaved.php',
+    'CustomEvents\LicenseHandler' => '/local/php_interface/classes/Events/LicenseHandler.php',
 ]);
 
 

@@ -15,7 +15,7 @@ BX.namespace("BX.Sale.OrderAjaxComponent");
           length = value.length,
           val;
 
-        for (; i < length; ) {
+        for (; i < length;) {
           val = value[i];
 
           if (val === undefined || val === null || val === "") {
@@ -330,6 +330,10 @@ BX.namespace("BX.Sale.OrderAjaxComponent");
      * Refreshes order via json data from ajax request
      */
     refreshOrder: function (result) {
+      console.log(this.result);
+
+      document.querySelector('.bx-soa-line-content').innerText('В заказе' + this.result.TOTAL_QURATITY + 'на сумму' + this.result.TOTAL.ORDER_PRICE_FORMATED)
+
       const resultOrder = result.order;
       let tmpResultPays = [];
 
@@ -709,8 +713,8 @@ BX.namespace("BX.Sale.OrderAjaxComponent");
 
     showErrors: function (errors, scroll, showAll) {
       var errorNodes = this.orderBlockNode.querySelectorAll(
-          "div.alert.alert-danger"
-        ),
+        "div.alert.alert-danger"
+      ),
         section,
         k,
         blockErrors;
@@ -821,8 +825,8 @@ BX.namespace("BX.Sale.OrderAjaxComponent");
 
     checkNotifications: function () {
       var informer = this.mainErrorsNode.querySelector(
-          '[data-type="informer"]'
-        ),
+        '[data-type="informer"]'
+      ),
         success,
         sections,
         className,
@@ -842,7 +846,7 @@ BX.namespace("BX.Sale.OrderAjaxComponent");
           success =
             sections.length &&
             sections[sections.length - 1].getAttribute("data-visited") ==
-              "true";
+            "true";
           className = success ? "success" : "warning";
           text = (
             success
@@ -954,8 +958,8 @@ BX.namespace("BX.Sale.OrderAjaxComponent");
 
     scrollToError: function () {
       var sections = this.orderBlockNode.querySelectorAll(
-          "div.bx-soa-section.bx-active"
-        ),
+        "div.bx-soa-section.bx-active"
+      ),
         i,
         errorNode;
 
@@ -972,8 +976,8 @@ BX.namespace("BX.Sale.OrderAjaxComponent");
 
     showWarnings: function () {
       var sections = this.orderBlockNode.querySelectorAll(
-          "div.bx-soa-section.bx-active"
-        ),
+        "div.bx-soa-section.bx-active"
+      ),
         currentDelivery = this.getSelectedDelivery(),
         k,
         warningString;
@@ -1160,8 +1164,8 @@ BX.namespace("BX.Sale.OrderAjaxComponent");
               pagination.pageNumber == 1
                 ? "<span>" + this.params.MESS_NAV_BACK + "</span>"
                 : '<a href=""><span>' +
-                  this.params.MESS_NAV_BACK +
-                  "</span></a>",
+                this.params.MESS_NAV_BACK +
+                "</span></a>",
             events: { click: BX.proxy(this.doPagination, this) },
           })
         );
@@ -1193,8 +1197,8 @@ BX.namespace("BX.Sale.OrderAjaxComponent");
               pagination.pageNumber == pagination.pages.length
                 ? "<span>" + this.params.MESS_NAV_FORWARD + "</span>"
                 : '<a href=""><span>' +
-                  this.params.MESS_NAV_FORWARD +
-                  "</span></a>",
+                this.params.MESS_NAV_FORWARD +
+                "</span></a>",
             events: { click: BX.proxy(this.doPagination, this) },
           })
         );
@@ -1593,10 +1597,10 @@ BX.namespace("BX.Sale.OrderAjaxComponent");
 
     isPriceChanged: function (result) {
       var priceBefore =
-          this.result.TOTAL.ORDER_TOTAL_LEFT_TO_PAY === null ||
+        this.result.TOTAL.ORDER_TOTAL_LEFT_TO_PAY === null ||
           this.result.TOTAL.ORDER_TOTAL_LEFT_TO_PAY === ""
-            ? this.result.TOTAL.ORDER_TOTAL_PRICE
-            : this.result.TOTAL.ORDER_TOTAL_LEFT_TO_PAY,
+          ? this.result.TOTAL.ORDER_TOTAL_PRICE
+          : this.result.TOTAL.ORDER_TOTAL_LEFT_TO_PAY,
         priceAfter =
           result.order.TOTAL.ORDER_TOTAL_LEFT_TO_PAY === null
             ? result.order.TOTAL.ORDER_TOTAL_PRICE
@@ -1881,17 +1885,17 @@ BX.namespace("BX.Sale.OrderAjaxComponent");
       this.checkNotifications();
 
       /*if (this.activeSectionId !== this.regionBlockNode.id)
-				this.editFadeRegionContent(this.regionBlockNode.querySelector('.bx-soa-section-content'));
+        this.editFadeRegionContent(this.regionBlockNode.querySelector('.bx-soa-section-content'));
 
-			if (this.activeSectionId != this.propsBlockNode.id)
-				this.editFadePropsContent(this.propsBlockNode.querySelector('.bx-soa-section-content'));*/
+      if (this.activeSectionId != this.propsBlockNode.id)
+        this.editFadePropsContent(this.propsBlockNode.querySelector('.bx-soa-section-content'));*/
     },
 
     fixLocationsStyle: function (section, hiddenSection) {
       if (!section || !hiddenSection) return;
 
       var regionActive =
-          this.activeSectionId == section.id ? section : hiddenSection,
+        this.activeSectionId == section.id ? section : hiddenSection,
         locationSearchInputs,
         locationStepInputs,
         i;
@@ -2053,8 +2057,8 @@ BX.namespace("BX.Sale.OrderAjaxComponent");
       if (!this.orderBlockNode || !actionSection) return {};
 
       var allSections = this.orderBlockNode.querySelectorAll(
-          ".bx-soa-section.bx-active"
-        ),
+        ".bx-soa-section.bx-active"
+      ),
         nextSection,
         i;
 
@@ -2105,8 +2109,8 @@ BX.namespace("BX.Sale.OrderAjaxComponent");
       if (!this.orderBlockNode || !actionSection) return {};
 
       var allSections = this.orderBlockNode.querySelectorAll(
-          ".bx-soa-section.bx-active"
-        ),
+        ".bx-soa-section.bx-active"
+      ),
         prevSection,
         i;
 
@@ -2337,8 +2341,8 @@ BX.namespace("BX.Sale.OrderAjaxComponent");
      */
     showActualBlock: function () {
       var allSections = this.orderBlockNode.querySelectorAll(
-          ".bx-soa-section.bx-active"
-        ),
+        ".bx-soa-section.bx-active"
+      ),
         i = 0;
 
       while (allSections[i]) {
@@ -2371,8 +2375,8 @@ BX.namespace("BX.Sale.OrderAjaxComponent");
      */
     getBlockFooter: function (node) {
       var sections = this.orderBlockNode.querySelectorAll(
-          ".bx-soa-section.bx-active"
-        ),
+        ".bx-soa-section.bx-active"
+      ),
         firstSection = sections[0],
         lastSection = sections[sections.length - 1],
         currentSection = BX.findParent(node, { className: "bx-soa-section" }),
@@ -2414,16 +2418,16 @@ BX.namespace("BX.Sale.OrderAjaxComponent");
       }
 
       /*node.appendChild(
-				BX.create('DIV', {
-					props: {className: 'row bx-soa-more'},
-					children: [
-						BX.create('DIV', {
-							props: {className: 'bx-soa-more-btn col'},
-							children: buttons
-						})
-					]
-				})
-			);*/
+        BX.create('DIV', {
+          props: {className: 'row bx-soa-more'},
+          children: [
+            BX.create('DIV', {
+              props: {className: 'bx-soa-more-btn col'},
+              children: buttons
+            })
+          ]
+        })
+      );*/
     },
 
     getNewContainer: function (notFluid) {
@@ -2518,15 +2522,15 @@ BX.namespace("BX.Sale.OrderAjaxComponent");
      */
     changeVisibleContent: function () {
       var sections = this.orderBlockNode.querySelectorAll(
-          ".bx-soa-section.bx-active"
-        ),
+        ".bx-soa-section.bx-active"
+      ),
         i,
         state;
 
       var orderDataLoaded =
-          !!this.result.IS_AUTHORIZED &&
-          this.params.USE_PRELOAD === "Y" &&
-          this.result.LAST_ORDER_DATA.FAIL !== true,
+        !!this.result.IS_AUTHORIZED &&
+        this.params.USE_PRELOAD === "Y" &&
+        this.result.LAST_ORDER_DATA.FAIL !== true,
         skipFlag = true;
 
       for (i = 0; i < sections.length; i++) {
@@ -2614,8 +2618,8 @@ BX.namespace("BX.Sale.OrderAjaxComponent");
       this.checkPickUpShow();
 
       var sections = this.orderBlockNode.querySelectorAll(
-          ".bx-soa-section.bx-active"
-        ),
+        ".bx-soa-section.bx-active"
+      ),
         i;
       for (i in sections) {
         if (sections.hasOwnProperty(i)) {
@@ -2665,11 +2669,11 @@ BX.namespace("BX.Sale.OrderAjaxComponent");
             if (BX("bx-soa-coupon_id") && data.couponNotFirstOrder == true) {
 
               BX.append(
-                  BX.create("DIV", {
-                    props: { className: "bx-block-coupon-error" },
-                    html: "Данный промокод для вас недоступен",
-                  }),
-                  BX("bx-soa-coupon_id")
+                BX.create("DIV", {
+                  props: { className: "bx-block-coupon-error" },
+                  html: "Данный промокод для вас недоступен",
+                }),
+                BX("bx-soa-coupon_id")
               );
 
             }
@@ -2730,19 +2734,19 @@ BX.namespace("BX.Sale.OrderAjaxComponent");
         errorContainer;
 
       /*BX.unbindAll(titleNode);
-			if (this.result.SHOW_AUTH)
-			{
-				BX.bind(titleNode, 'click', BX.delegate(function(){
-					this.animateScrollTo(this.authBlockNode);
-					this.addAnimationEffect(this.authBlockNode, 'bx-step-good');
-				}, this));
-			}
-			else
-			{
-				BX.bind(titleNode, 'click', BX.proxy(this.showByClick, this));
-				editButton = titleNode.querySelector('.bx-soa-editstep');
-				editButton && BX.bind(editButton, 'click', BX.proxy(this.showByClick, this));
-			}*/
+      if (this.result.SHOW_AUTH)
+      {
+        BX.bind(titleNode, 'click', BX.delegate(function(){
+          this.animateScrollTo(this.authBlockNode);
+          this.addAnimationEffect(this.authBlockNode, 'bx-step-good');
+        }, this));
+      }
+      else
+      {
+        BX.bind(titleNode, 'click', BX.proxy(this.showByClick, this));
+        editButton = titleNode.querySelector('.bx-soa-editstep');
+        editButton && BX.bind(editButton, 'click', BX.proxy(this.showByClick, this));
+      }*/
 
       errorContainer = section.querySelector(".alert.alert-danger");
       this.hasErrorSection[section.id] =
@@ -2779,8 +2783,8 @@ BX.namespace("BX.Sale.OrderAjaxComponent");
       if (!this.authBlockNode) return;
 
       var authContent = this.authBlockNode.querySelector(
-          ".bx-soa-section-content"
-        ),
+        ".bx-soa-section-content"
+      ),
         regContent,
         okMessageNode;
 
@@ -2894,12 +2898,12 @@ BX.namespace("BX.Sale.OrderAjaxComponent");
               text: BX.message("STOF_ENTER"),
             },
             /*events: {
-							click: BX.delegate(function(e){
-								BX('do_authorize').value = 'Y';
-								this.sendRequest('showAuthForm');
-								return BX.PreventDefault(e);
-							}, this)
-						}*/
+              click: BX.delegate(function(e){
+                BX('do_authorize').value = 'Y';
+                this.sendRequest('showAuthForm');
+                return BX.PreventDefault(e);
+              }, this)
+            }*/
           }),
           BX.create("A", {
             props: {
@@ -3552,8 +3556,8 @@ BX.namespace("BX.Sale.OrderAjaxComponent");
 
     editActiveBasketBlock: function (activeNodeMode) {
       var node = !!activeNodeMode
-          ? this.basketBlockNode
-          : this.basketHiddenBlockNode,
+        ? this.basketBlockNode
+        : this.basketHiddenBlockNode,
         basketContent,
         basketTable;
 
@@ -3581,8 +3585,8 @@ BX.namespace("BX.Sale.OrderAjaxComponent");
               "background-size",
               (this.result.LOGICTIM_BONUS?.PAY_BONUS /
                 this.result.LOGICTIM_BONUS?.MAX_BONUS) *
-                100 +
-                "%"
+              100 +
+              "%"
             );
         }, 100);
       }
@@ -3635,8 +3639,8 @@ BX.namespace("BX.Sale.OrderAjaxComponent");
 
     editFadeBasketBlock: function (activeNodeMode) {
       var node = !!activeNodeMode
-          ? this.basketHiddenBlockNode
-          : this.basketBlockNode,
+        ? this.basketHiddenBlockNode
+        : this.basketBlockNode,
         newContent,
         basketTable;
 
@@ -3712,17 +3716,17 @@ BX.namespace("BX.Sale.OrderAjaxComponent");
       if (!basketItemsNode) return;
 
       var headers = [
-          BX.create("DIV", {
-            props: { className: "bx-soa-item-td" },
-            style: { paddingBottom: "5px" },
-            children: [
-              BX.create("DIV", {
-                props: { className: "bx-soa-item-td-title" },
-                text: BX.message("SOA_SUM_NAME"),
-              }),
-            ],
-          }),
-        ],
+        BX.create("DIV", {
+          props: { className: "bx-soa-item-td" },
+          style: { paddingBottom: "5px" },
+          children: [
+            BX.create("DIV", {
+              props: { className: "bx-soa-item-td-title" },
+              text: BX.message("SOA_SUM_NAME"),
+            }),
+          ],
+        }),
+      ],
         toRight = false,
         column,
         basketColumnIndex = 0,
@@ -3969,13 +3973,13 @@ BX.namespace("BX.Sale.OrderAjaxComponent");
         logoNode.setAttribute(
           "style",
           'background-image: url("' +
-            logotype.src_1x +
-            '");' +
-            'background-image: -webkit-image-set(url("' +
-            logotype.src_1x +
-            '") 1x, url("' +
-            logotype.src_2x +
-            '") 2x)'
+          logotype.src_1x +
+          '");' +
+          'background-image: -webkit-image-set(url("' +
+          logotype.src_1x +
+          '") 1x, url("' +
+          logotype.src_2x +
+          '") 2x)'
         );
       } else {
         logotype = (logotype && logotype.src_1x) || this.defaultBasketItemLogo;
@@ -4045,21 +4049,21 @@ BX.namespace("BX.Sale.OrderAjaxComponent");
         props: { className: "bx-soa-item-content" },
         children: propsNodes.length
           ? [
-              BX.create("DIV", {
-                props: { className: "bx-soa-item-title" },
-                html: titleHtml,
-              }),
-              BX.create("DIV", {
-                props: { className: "bx-scu-container" },
-                children: propsNodes,
-              }),
-            ]
+            BX.create("DIV", {
+              props: { className: "bx-soa-item-title" },
+              html: titleHtml,
+            }),
+            BX.create("DIV", {
+              props: { className: "bx-scu-container" },
+              children: propsNodes,
+            }),
+          ]
           : [
-              BX.create("DIV", {
-                props: { className: "bx-soa-item-title" },
-                html: titleHtml,
-              }),
-            ],
+            BX.create("DIV", {
+              props: { className: "bx-soa-item-title" },
+              html: titleHtml,
+            }),
+          ],
       });
     },
 
@@ -4441,7 +4445,7 @@ BX.namespace("BX.Sale.OrderAjaxComponent");
                         windowSize.innerHeight * ratio + "px";
                       content.style.width =
                         contentWidth *
-                          ((windowSize.innerHeight * ratio) / contentHeight) +
+                        ((windowSize.innerHeight * ratio) / contentHeight) +
                         "px";
                       contentHeight = content.offsetHeight;
                       contentWidth = content.offsetWidth;
@@ -4452,7 +4456,7 @@ BX.namespace("BX.Sale.OrderAjaxComponent");
                         windowSize.innerWidth * ratio + "px";
                       content.style.height =
                         contentHeight *
-                          ((windowSize.innerWidth * ratio) / contentWidth) +
+                        ((windowSize.innerWidth * ratio) / contentWidth) +
                         "px";
                     }
 
@@ -4994,39 +4998,39 @@ BX.namespace("BX.Sale.OrderAjaxComponent");
         },
         children: active
           ? [
-              couponName || "",
-              BX.create("SPAN", {
-                props: { className: "bx-soa-coupon-remove" },
-                events: {
-                  click: BX.delegate(function (e) {
-                    var target = e.target || e.srcElement,
-                      coupon = BX.findParent(target, { tagName: "STRONG" });
+            couponName || "",
+            BX.create("SPAN", {
+              props: { className: "bx-soa-coupon-remove" },
+              events: {
+                click: BX.delegate(function (e) {
+                  var target = e.target || e.srcElement,
+                    coupon = BX.findParent(target, { tagName: "STRONG" });
 
-                    if (coupon && coupon.getAttribute("data-coupon")) {
-                      this.sendRequest(
-                        "removeCoupon",
-                        coupon.getAttribute("data-coupon")
-                      );
-                    }
-                  }, this),
-                },
-              }),
-              BX.create("SPAN", {
-                props: {
-                  className:
-                    "bx-soa-tooltip bx-soa-tooltip-coupon bx-soa-tooltip-" +
-                    tooltip +
-                    " tooltip top",
-                },
-                children: [
-                  BX.create("SPAN", { props: { className: "tooltip-arrow" } }),
-                  BX.create("SPAN", {
-                    props: { className: "tooltip-inner" },
-                    text: couponDesc,
-                  }),
-                ],
-              }),
-            ]
+                  if (coupon && coupon.getAttribute("data-coupon")) {
+                    this.sendRequest(
+                      "removeCoupon",
+                      coupon.getAttribute("data-coupon")
+                    );
+                  }
+                }, this),
+              },
+            }),
+            BX.create("SPAN", {
+              props: {
+                className:
+                  "bx-soa-tooltip bx-soa-tooltip-coupon bx-soa-tooltip-" +
+                  tooltip +
+                  " tooltip top",
+              },
+              children: [
+                BX.create("SPAN", { props: { className: "tooltip-arrow" } }),
+                BX.create("SPAN", {
+                  props: { className: "tooltip-inner" },
+                  text: couponDesc,
+                }),
+              ],
+            }),
+          ]
           : [couponName],
       });
     },
@@ -5065,8 +5069,8 @@ BX.namespace("BX.Sale.OrderAjaxComponent");
 
     removeCoupon: function (coupon) {
       var couponNodes = this.orderBlockNode.querySelectorAll(
-          '[data-coupon="' + BX.util.htmlspecialchars(coupon) + '"]'
-        ),
+        '[data-coupon="' + BX.util.htmlspecialchars(coupon) + '"]'
+      ),
         i;
 
       for (i in couponNodes) {
@@ -5094,8 +5098,8 @@ BX.namespace("BX.Sale.OrderAjaxComponent");
 
     editActiveRegionBlock: function (activeNodeMode) {
       var node = activeNodeMode
-          ? this.regionBlockNode
-          : this.regionHiddenBlockNode,
+        ? this.regionBlockNode
+        : this.regionHiddenBlockNode,
         regionContent,
         regionNode,
         regionNodeCol;
@@ -5147,8 +5151,8 @@ BX.namespace("BX.Sale.OrderAjaxComponent");
 
     editFadeRegionBlock: function () {
       var regionContent = this.regionBlockNode.querySelector(
-          ".bx-soa-section-content"
-        ),
+        ".bx-soa-section-content"
+      ),
         newContent;
 
       if (this.initialized.region) {
@@ -5209,13 +5213,13 @@ BX.namespace("BX.Sale.OrderAjaxComponent");
           if (
             this.result.ORDER_PROP.properties[i].IS_LOCATION == "Y" &&
             this.result.ORDER_PROP.properties[i].ID ==
-              this.deliveryLocationInfo.loc
+            this.deliveryLocationInfo.loc
           ) {
             locationProperty = this.result.ORDER_PROP.properties[i];
           } else if (
             this.result.ORDER_PROP.properties[i].IS_ZIP == "Y" &&
             this.result.ORDER_PROP.properties[i].ID ==
-              this.deliveryLocationInfo.zip
+            this.deliveryLocationInfo.zip
           ) {
             zipProperty = this.result.ORDER_PROP.properties[i];
             for (k = 0; k < props.length; k++) {
@@ -5358,8 +5362,8 @@ BX.namespace("BX.Sale.OrderAjaxComponent");
           BX.util.htmlspecialchars(currentProperty.NAME) +
           (currentProperty.DESCRIPTION.length
             ? " <small>(" +
-              BX.util.htmlspecialchars(currentProperty.DESCRIPTION) +
-              ")</small>"
+            BX.util.htmlspecialchars(currentProperty.DESCRIPTION) +
+            ")</small>"
             : "") +
           "</label>";
 
@@ -5463,7 +5467,7 @@ BX.namespace("BX.Sale.OrderAjaxComponent");
         locationSteps = node.querySelectorAll(
           ".bx-ui-combobox-fake.bx-combobox-fake-as-input"
         );
-        for (i = locationSteps.length; i--; ) {
+        for (i = locationSteps.length; i--;) {
           if (locationSteps[i].innerHTML.indexOf("...") >= 0) continue;
 
           if (locationSteps[i].innerHTML.indexOf("---") >= 0) {
@@ -5686,8 +5690,8 @@ BX.namespace("BX.Sale.OrderAjaxComponent");
 
     getProfilesControl: function (node) {
       var profilesLength = BX.util.object_keys(
-          this.result.USER_PROFILES
-        ).length,
+        this.result.USER_PROFILES
+      ).length,
         i,
         label,
         options = [],
@@ -5793,8 +5797,8 @@ BX.namespace("BX.Sale.OrderAjaxComponent");
 
     editActivePaySystemBlock: function (activeNodeMode) {
       var node = activeNodeMode
-          ? this.paySystemBlockNode
-          : this.paySystemHiddenBlockNode,
+        ? this.paySystemBlockNode
+        : this.paySystemHiddenBlockNode,
         paySystemContent,
         paySystemNode;
 
@@ -5825,8 +5829,8 @@ BX.namespace("BX.Sale.OrderAjaxComponent");
 
     editFadePaySystemBlock: function () {
       var paySystemContent = this.paySystemBlockNode.querySelector(
-          ".bx-soa-section-content"
-        ),
+        ".bx-soa-section-content"
+      ),
         newContent;
 
       if (this.initialized.paySystem) {
@@ -5849,8 +5853,8 @@ BX.namespace("BX.Sale.OrderAjaxComponent");
       if (!this.result.PAY_SYSTEM || this.result.PAY_SYSTEM.length <= 0) return;
 
       var paySystemItemsContainer = BX.create("DIV", {
-          props: { className: "bx-soa-pp-item-container pay-items" },
-        }),
+        props: { className: "bx-soa-pp-item-container pay-items" },
+      }),
         paySystemItemsContainerRow = BX.create("DIV", {
           props: { className: "row" },
         }),
@@ -5888,13 +5892,13 @@ BX.namespace("BX.Sale.OrderAjaxComponent");
         logoNode.setAttribute(
           "style",
           'background-image: url("' +
-            logotype.src_1x +
-            '");' +
-            'background-image: -webkit-image-set(url("' +
-            logotype.src_1x +
-            '") 1x, url("' +
-            logotype.src_2x +
-            '") 2x)'
+          logotype.src_1x +
+          '");' +
+          'background-image: -webkit-image-set(url("' +
+          logotype.src_1x +
+          '") 1x, url("' +
+          logotype.src_2x +
+          '") 2x)'
         );
       } else {
         logotype = (logotype && logotype.src_1x) || this.defaultPaySystemLogo;
@@ -5949,12 +5953,12 @@ BX.namespace("BX.Sale.OrderAjaxComponent");
         return;
 
       var paySystemInfoContainer = BX.create("DIV", {
-          props: {
-            className:
-              (this.result.PAY_SYSTEM.length == 0 ? "" : "") +
-              "bx-soa-pp-desc-container more-info-items",
-          },
-        }),
+        props: {
+          className:
+            (this.result.PAY_SYSTEM.length == 0 ? "" : "") +
+            "bx-soa-pp-desc-container more-info-items",
+        },
+      }),
         innerPs,
         extPs,
         delimiter,
@@ -5981,13 +5985,13 @@ BX.namespace("BX.Sale.OrderAjaxComponent");
           logoNode.setAttribute(
             "style",
             'background-image: url("' +
-              logotype.src_1x +
-              '");' +
-              'background-image: -webkit-image-set(url("' +
-              logotype.src_1x +
-              '") 1x, url("' +
-              logotype.src_2x +
-              '") 2x)'
+            logotype.src_1x +
+            '");' +
+            'background-image: -webkit-image-set(url("' +
+            logotype.src_1x +
+            '") 1x, url("' +
+            logotype.src_2x +
+            '") 2x)'
           );
         } else {
           logotype = (logotype && logotype.src_1x) || this.defaultPaySystemLogo;
@@ -5999,20 +6003,20 @@ BX.namespace("BX.Sale.OrderAjaxComponent");
 
         if (this.params.SHOW_PAY_SYSTEM_INFO_NAME == "Y") {
           /*subTitle = BX.create('DIV', {
-						props: {className: 'bx-soa-pp-company-subTitle'},
-						text: currentPaySystem.NAME
-					});*/
+            props: {className: 'bx-soa-pp-company-subTitle'},
+            text: currentPaySystem.NAME
+          });*/
         }
 
         /*label = BX.create('DIV', {
-					props: {className: 'bx-soa-pp-company-logo'},
-					children: [
-						BX.create('DIV', {
-							props: {className: 'bx-soa-pp-company-graf-container'},
-							children: [logoNode]
-						})
-					]
-				});*/
+          props: {className: 'bx-soa-pp-company-logo'},
+          children: [
+            BX.create('DIV', {
+              props: {className: 'bx-soa-pp-company-graf-container'},
+              children: [logoNode]
+            })
+          ]
+        });*/
 
         title = BX.create("DIV", {
           props: { className: "bx-soa-pp-company-block" },
@@ -6068,8 +6072,8 @@ BX.namespace("BX.Sale.OrderAjaxComponent");
         return;
 
       var accountOnly =
-          this.params.ONLY_FULL_PAY_FROM_ACCOUNT &&
-          this.params.ONLY_FULL_PAY_FROM_ACCOUNT == "Y",
+        this.params.ONLY_FULL_PAY_FROM_ACCOUNT &&
+        this.params.ONLY_FULL_PAY_FROM_ACCOUNT == "Y",
         isSelected =
           this.result.PAY_CURRENT_ACCOUNT &&
           this.result.PAY_CURRENT_ACCOUNT == "Y",
@@ -6085,9 +6089,9 @@ BX.namespace("BX.Sale.OrderAjaxComponent");
 
       if (this.params.SHOW_PAY_SYSTEM_INFO_NAME == "Y") {
         /*subTitle = BX.create('DIV', {
-					props: {className: 'bx-soa-pp-company-subTitle'},
-					text: paySystem.NAME
-				});*/
+          props: {className: 'bx-soa-pp-company-subTitle'},
+          text: paySystem.NAME
+        });*/
       }
 
       logoNode = BX.create("DIV", {
@@ -6098,13 +6102,13 @@ BX.namespace("BX.Sale.OrderAjaxComponent");
         logoNode.setAttribute(
           "style",
           'background-image: url("' +
-            logotype.src_1x +
-            '");' +
-            'background-image: -webkit-image-set(url("' +
-            logotype.src_1x +
-            '") 1x, url("' +
-            logotype.src_2x +
-            '") 2x)'
+          logotype.src_1x +
+          '");' +
+          'background-image: -webkit-image-set(url("' +
+          logotype.src_1x +
+          '") 1x, url("' +
+          logotype.src_2x +
+          '") 2x)'
         );
       } else {
         logotype = (logotype && logotype.src_1x) || this.defaultPaySystemLogo;
@@ -6249,8 +6253,8 @@ BX.namespace("BX.Sale.OrderAjaxComponent");
 
     getSelectedPaySystem: function () {
       var paySystemCheckbox = this.paySystemBlockNode.querySelector(
-          "input[type=checkbox][name=PAY_SYSTEM_ID]:checked"
-        ),
+        "input[type=checkbox][name=PAY_SYSTEM_ID]:checked"
+      ),
         currentPaySystem = null,
         paySystemId,
         i;
@@ -6307,8 +6311,8 @@ BX.namespace("BX.Sale.OrderAjaxComponent");
           parseFloat(this.result.TOTAL.ORDER_TOTAL_LEFT_TO_PAY) === 0;
 
       var innerPsAction = BX.hasClass(target, "bx-soa-pp-inner-ps")
-          ? target
-          : BX.findParent(target, { className: "bx-soa-pp-inner-ps" }),
+        ? target
+        : BX.findParent(target, { className: "bx-soa-pp-inner-ps" }),
         actionSection = BX.hasClass(target, "bx-soa-pp-company")
           ? target
           : BX.findParent(target, { className: "bx-soa-pp-company" }),
@@ -6378,8 +6382,8 @@ BX.namespace("BX.Sale.OrderAjaxComponent");
 
     editActiveDeliveryBlock: function (activeNodeMode) {
       var node = activeNodeMode
-          ? this.deliveryBlockNode
-          : this.deliveryHiddenBlockNode,
+        ? this.deliveryBlockNode
+        : this.deliveryHiddenBlockNode,
         deliveryContent,
         deliveryNode;
 
@@ -6413,8 +6417,8 @@ BX.namespace("BX.Sale.OrderAjaxComponent");
       if (!this.result.DELIVERY || this.result.DELIVERY.length <= 0) return;
 
       var deliveryItemsContainer = BX.create("DIV", {
-          props: { className: "bx-soa-pp-item-container delivery-items" },
-        }),
+        props: { className: "bx-soa-pp-item-container delivery-items" },
+      }),
         deliveryItemsContainerRow = BX.create("DIV", {
           props: { className: "row" },
         }),
@@ -6439,8 +6443,8 @@ BX.namespace("BX.Sale.OrderAjaxComponent");
       if (!this.result.DELIVERY) return;
 
       var deliveryInfoContainer = BX.create("DIV", {
-          props: { className: "bx-soa-pp-desc-container more-info-items" },
-        }),
+        props: { className: "bx-soa-pp-desc-container more-info-items" },
+      }),
         currentDelivery,
         logotype,
         name,
@@ -6466,13 +6470,13 @@ BX.namespace("BX.Sale.OrderAjaxComponent");
         logoNode.setAttribute(
           "style",
           'background-image: url("' +
-            logotype.src_1x +
-            '");' +
-            'background-image: -webkit-image-set(url("' +
-            logotype.src_1x +
-            '") 1x, url("' +
-            logotype.src_2x +
-            '") 2x)'
+          logotype.src_1x +
+          '");' +
+          'background-image: -webkit-image-set(url("' +
+          logotype.src_1x +
+          '") 1x, url("' +
+          logotype.src_2x +
+          '") 2x)'
         );
       } else {
         logotype = (logotype && logotype.src_1x) || this.defaultDeliveryLogo;
@@ -6491,14 +6495,14 @@ BX.namespace("BX.Sale.OrderAjaxComponent");
         //subTitle = BX.create('DIV', {props: {className: 'bx-soa-pp-company-subTitle'}, text: name});
 
         /*label = BX.create('DIV', {
-				props: {className: 'bx-soa-pp-company-logo'},
-				children: [
-					BX.create('DIV', {
-						props: {className: 'bx-soa-pp-company-graf-container'},
-						children: [logoNode]
-					})
-				]
-			});*/
+        props: {className: 'bx-soa-pp-company-logo'},
+        children: [
+          BX.create('DIV', {
+            props: {className: 'bx-soa-pp-company-graf-container'},
+            children: [logoNode]
+          })
+        ]
+      });*/
         title = BX.create("DIV", {
           props: { className: "bx-soa-pp-company-block" },
           children: [
@@ -6508,9 +6512,9 @@ BX.namespace("BX.Sale.OrderAjaxComponent");
             }),
             currentDelivery.CALCULATE_DESCRIPTION
               ? BX.create("DIV", {
-                  props: { className: "bx-soa-pp-company-desc" },
-                  html: currentDelivery.CALCULATE_DESCRIPTION,
-                })
+                props: { className: "bx-soa-pp-company-desc" },
+                html: currentDelivery.CALCULATE_DESCRIPTION,
+              })
               : null,
           ],
         });
@@ -6584,7 +6588,7 @@ BX.namespace("BX.Sale.OrderAjaxComponent");
       if (
         typeof delivery.DELIVERY_DISCOUNT_PRICE !== "undefined" &&
         parseFloat(delivery.DELIVERY_DISCOUNT_PRICE) !=
-          parseFloat(delivery.PRICE)
+        parseFloat(delivery.PRICE)
       ) {
         if (
           parseFloat(delivery.DELIVERY_DISCOUNT_PRICE) >
@@ -6640,8 +6644,8 @@ BX.namespace("BX.Sale.OrderAjaxComponent");
               currentService.editControl +
               (currentService.description && currentService.description.length
                 ? '<div class="bx-soa-service-small">' +
-                  BX.util.htmlspecialchars(currentService.description) +
-                  "</div>"
+                BX.util.htmlspecialchars(currentService.description) +
+                "</div>"
                 : ""),
           });
 
@@ -6662,10 +6666,10 @@ BX.namespace("BX.Sale.OrderAjaxComponent");
                     ? " (" + currentService.priceFormatted + ")"
                     : "") +
                   (currentService.description &&
-                  currentService.description.length
+                    currentService.description.length
                     ? '<div class="bx-soa-service-small">' +
-                      BX.util.htmlspecialchars(currentService.description) +
-                      "</div>"
+                    BX.util.htmlspecialchars(currentService.description) +
+                    "</div>"
                     : ""),
               }),
             ],
@@ -6682,8 +6686,8 @@ BX.namespace("BX.Sale.OrderAjaxComponent");
 
     editFadeDeliveryBlock: function () {
       var deliveryContent = this.deliveryBlockNode.querySelector(
-          ".bx-soa-section-content"
-        ),
+        ".bx-soa-section-content"
+      ),
         newContent;
 
       if (this.initialized.delivery) {
@@ -6732,13 +6736,13 @@ BX.namespace("BX.Sale.OrderAjaxComponent");
         logoNode.setAttribute(
           "style",
           'background-image: url("' +
-            logotype.src_1x +
-            '");' +
-            'background-image: -webkit-image-set(url("' +
-            logotype.src_1x +
-            '") 1x, url("' +
-            logotype.src_2x +
-            '") 2x)'
+          logotype.src_1x +
+          '");' +
+          'background-image: -webkit-image-set(url("' +
+          logotype.src_1x +
+          '") 1x, url("' +
+          logotype.src_2x +
+          '") 2x)'
         );
       } else {
         logotype = (logotype && logotype.src_1x) || this.defaultDeliveryLogo;
@@ -6783,7 +6787,7 @@ BX.namespace("BX.Sale.OrderAjaxComponent");
           className:
             "bx-soa-pp-company-graf-container" +
             (item.CALCULATE_ERRORS ||
-            (deliveryCached && deliveryCached.CALCULATE_ERRORS)
+              (deliveryCached && deliveryCached.CALCULATE_ERRORS)
               ? " bx-bd-waring"
               : ""),
         },
@@ -6938,8 +6942,8 @@ BX.namespace("BX.Sale.OrderAjaxComponent");
 
     getSelectedDelivery: function () {
       var deliveryCheckbox = this.deliveryBlockNode.querySelector(
-          "input[type=checkbox][name=DELIVERY_ID]:checked"
-        ),
+        "input[type=checkbox][name=DELIVERY_ID]:checked"
+      ),
         currentDelivery = false,
         deliveryId,
         i;
@@ -7012,8 +7016,8 @@ BX.namespace("BX.Sale.OrderAjaxComponent");
 
     editActivePickUpBlock: function (activeNodeMode) {
       var node = activeNodeMode
-          ? this.pickUpBlockNode
-          : this.pickUpHiddenBlockNode,
+        ? this.pickUpBlockNode
+        : this.pickUpHiddenBlockNode,
         pickUpContent,
         pickUpContentCol;
 
@@ -7070,8 +7074,8 @@ BX.namespace("BX.Sale.OrderAjaxComponent");
 
     editFadePickUpBlock: function () {
       var pickUpContent = this.pickUpBlockNode.querySelector(
-          ".bx-soa-section-content"
-        ),
+        ".bx-soa-section-content"
+      ),
         newContent;
 
       if (this.initialized.pickup) {
@@ -7368,8 +7372,8 @@ BX.namespace("BX.Sale.OrderAjaxComponent");
       BX.remove(BX("pickUpLoader"));
 
       var pickUpList = BX.create("DIV", {
-          props: { className: "bx-soa-pickup-list main" },
-        }),
+        props: { className: "bx-soa-pickup-list main" },
+      }),
         buyerStoreInput = BX("BUYER_STORE"),
         selectedStore,
         container,
@@ -7540,13 +7544,13 @@ BX.namespace("BX.Sale.OrderAjaxComponent");
             props: { className: "bx-soa-pickup-l-item-adress" },
             children: options.distance
               ? [
-                  BX.util.htmlspecialchars(currentStore.ADDRESS),
-                  " ( ~" +
-                    options.distance +
-                    " " +
-                    BX.message("SOA_DISTANCE_KM") +
-                    " ) ",
-                ]
+                BX.util.htmlspecialchars(currentStore.ADDRESS),
+                " ( ~" +
+                options.distance +
+                " " +
+                BX.message("SOA_DISTANCE_KM") +
+                " ) ",
+              ]
               : [BX.util.htmlspecialchars(currentStore.ADDRESS)],
           }),
           BX.create("DIV", {
@@ -7597,8 +7601,8 @@ BX.namespace("BX.Sale.OrderAjaxComponent");
       BX.remove(BX("pickUpLoader"));
 
       var recommendList = BX.create("DIV", {
-          props: { className: "bx-soa-pickup-list recommend" },
-        }),
+        props: { className: "bx-soa-pickup-list recommend" },
+      }),
         buyerStoreInput = BX("BUYER_STORE"),
         selectedDelivery = this.getSelectedDelivery();
 
@@ -7721,8 +7725,8 @@ BX.namespace("BX.Sale.OrderAjaxComponent");
             return a.OWN_NAME.toLowerCase() > b.OWN_NAME.toLowerCase()
               ? 1
               : a.OWN_NAME.toLowerCase() < b.OWN_NAME.toLowerCase()
-              ? -1
-              : 0;
+                ? -1
+                : 0;
           } else {
             return sort;
           }
@@ -7764,8 +7768,8 @@ BX.namespace("BX.Sale.OrderAjaxComponent");
 
     editActivePropsBlock: function (activeNodeMode) {
       var node = activeNodeMode
-          ? this.propsBlockNode
-          : this.propsHiddenBlockNode,
+        ? this.propsBlockNode
+        : this.propsHiddenBlockNode,
         propsContent,
         propsNode,
         selectedDelivery,
@@ -7830,8 +7834,8 @@ BX.namespace("BX.Sale.OrderAjaxComponent");
 
     editFadePropsBlock: function () {
       var propsContent = this.propsBlockNode.querySelector(
-          ".bx-soa-section-content"
-        ),
+        ".bx-soa-section-content"
+      ),
         newContent;
 
       if (this.initialized.props) {
@@ -7910,8 +7914,8 @@ BX.namespace("BX.Sale.OrderAjaxComponent");
       if (!this.result.ORDER_PROP || !this.propertyCollection) return;
 
       var propsItemsContainer = BX.create("DIV", {
-          props: { className: "col-sm-12 bx-soa-customer" },
-        }),
+        props: { className: "col-sm-12 bx-soa-customer" },
+      }),
         group,
         property,
         groupIterator = this.propertyCollection.getGroupIterator(),
@@ -8743,8 +8747,8 @@ BX.namespace("BX.Sale.OrderAjaxComponent");
       if (!this.options.propertyValidation) return [];
 
       var regionProps = this.orderBlockNode.querySelectorAll(
-          ".bx-soa-location-input-container[data-property-id-row]"
-        ),
+        ".bx-soa-location-input-container[data-property-id-row]"
+      ),
         regionErrors = [],
         id,
         arProperty,
@@ -8766,8 +8770,8 @@ BX.namespace("BX.Sale.OrderAjaxComponent");
       if (!this.options.propertyValidation) return [];
 
       var props = this.orderBlockNode.querySelectorAll(
-          ".bx-soa-customer-field[data-property-id-row]"
-        ),
+        ".bx-soa-customer-field[data-property-id-row]"
+      ),
         propsErrors = [],
         id,
         propContainer,
@@ -8807,8 +8811,8 @@ BX.namespace("BX.Sale.OrderAjaxComponent");
           $(data.inputs[i]).closest(".phone-mask-number-required").length == 1
         ) {
           let currentPhoneDataCode = $(data.inputs[i])
-              .closest(".phone-mask-number")
-              .attr("data-code"),
+            .closest(".phone-mask-number")
+            .attr("data-code"),
             currentPhoneValue =
               this.phonesInput[currentPhoneDataCode][0][
                 "inputmask"
@@ -9075,10 +9079,10 @@ BX.namespace("BX.Sale.OrderAjaxComponent");
           if (currentDeliveryID.ID == 6 || currentDeliveryID.ID == 13) {
             errors.push(
               field +
-                " " +
-                BX.message("SOA_REQUIRED") +
-                ". " +
-                BX.message("SOA_REQUIRED_PLEASE_ADD_POINT")
+              " " +
+              BX.message("SOA_REQUIRED") +
+              ". " +
+              BX.message("SOA_REQUIRED_PLEASE_ADD_POINT")
             );
           } else {
             errors.push(field + " " + BX.message("SOA_REQUIRED"));
@@ -9092,27 +9096,27 @@ BX.namespace("BX.Sale.OrderAjaxComponent");
         if (arProperty.MINLENGTH && arProperty.MINLENGTH > value.length)
           errors.push(
             BX.message("SOA_MIN_LENGTH") +
-              ' "' +
-              name +
-              '" ' +
-              BX.message("SOA_LESS") +
-              " " +
-              arProperty.MINLENGTH +
-              " " +
-              BX.message("SOA_SYMBOLS")
+            ' "' +
+            name +
+            '" ' +
+            BX.message("SOA_LESS") +
+            " " +
+            arProperty.MINLENGTH +
+            " " +
+            BX.message("SOA_SYMBOLS")
           );
 
         if (arProperty.MAXLENGTH && arProperty.MAXLENGTH < value.length)
           errors.push(
             BX.message("SOA_MAX_LENGTH") +
-              ' "' +
-              name +
-              '" ' +
-              BX.message("SOA_MORE") +
-              " " +
-              arProperty.MAXLENGTH +
-              " " +
-              BX.message("SOA_SYMBOLS")
+            ' "' +
+            name +
+            '" ' +
+            BX.message("SOA_MORE") +
+            " " +
+            arProperty.MAXLENGTH +
+            " " +
+            BX.message("SOA_SYMBOLS")
           );
 
         if (arProperty.IS_EMAIL === "Y") {
@@ -9144,16 +9148,16 @@ BX.namespace("BX.Sale.OrderAjaxComponent");
       if (!input || !arProperty) return [];
 
       var parent = BX.findParent(input, {
-          tagName: "DIV",
-          className: "form-group",
-        }),
+        tagName: "DIV",
+        className: "form-group",
+      }),
         value = this.getLocationString(parent),
         errors = [],
         field = !!fieldName
           ? BX.message("SOA_FIELD") +
-            ' "' +
-            BX.util.htmlspecialchars(arProperty.NAME) +
-            '"'
+          ' "' +
+          BX.util.htmlspecialchars(arProperty.NAME) +
+          '"'
           : BX.message("SOA_FIELD");
 
       if (arProperty.MULTIPLE == "Y" && arProperty.IS_LOCATION !== "Y")
@@ -9174,9 +9178,9 @@ BX.namespace("BX.Sale.OrderAjaxComponent");
       var errors = [],
         field = !!fieldName
           ? BX.message("SOA_FIELD") +
-            ' "' +
-            BX.util.htmlspecialchars(arProperty.NAME) +
-            '"'
+          ' "' +
+          BX.util.htmlspecialchars(arProperty.NAME) +
+          '"'
           : BX.message("SOA_FIELD");
 
       if (arProperty.MULTIPLE == "Y") return errors;
@@ -9211,27 +9215,27 @@ BX.namespace("BX.Sale.OrderAjaxComponent");
         if (arProperty.MIN && parseFloat(arProperty.MIN) > parseFloat(value))
           errors.push(
             BX.message("SOA_MIN_VALUE") +
-              ' "' +
-              name +
-              '" ' +
-              parseFloat(arProperty.MIN)
+            ' "' +
+            name +
+            '" ' +
+            parseFloat(arProperty.MIN)
           );
 
         if (arProperty.MAX && parseFloat(arProperty.MAX) < parseFloat(value))
           errors.push(
             BX.message("SOA_MAX_VALUE") +
-              ' "' +
-              name +
-              '" ' +
-              parseFloat(arProperty.MAX)
+            ' "' +
+            name +
+            '" ' +
+            parseFloat(arProperty.MAX)
           );
 
         if (arProperty.STEP && parseFloat(arProperty.STEP) > 0) {
           num = Math.abs(
             parseFloat(value) -
-              (arProperty.MIN && parseFloat(arProperty.MIN) > 0
-                ? parseFloat(arProperty.MIN)
-                : 0)
+            (arProperty.MIN && parseFloat(arProperty.MIN) > 0
+              ? parseFloat(arProperty.MIN)
+              : 0)
           );
           del = (num / parseFloat(arProperty.STEP)).toPrecision(12);
           if (del != parseInt(del))
@@ -9252,9 +9256,9 @@ BX.namespace("BX.Sale.OrderAjaxComponent");
         i,
         field = !!fieldName
           ? BX.message("SOA_FIELD") +
-            ' "' +
-            BX.util.htmlspecialchars(arProperty.NAME) +
-            '"'
+          ' "' +
+          BX.util.htmlspecialchars(arProperty.NAME) +
+          '"'
           : BX.message("SOA_FIELD");
 
       if (arProperty.MULTIPLE == "Y") return errors;
@@ -9276,9 +9280,9 @@ BX.namespace("BX.Sale.OrderAjaxComponent");
         i,
         field = !!fieldName
           ? BX.message("SOA_FIELD") +
-            ' "' +
-            BX.util.htmlspecialchars(arProperty.NAME) +
-            '"'
+          ' "' +
+          BX.util.htmlspecialchars(arProperty.NAME) +
+          '"'
           : BX.message("SOA_FIELD");
 
       if (arProperty.MULTIPLE == "Y") return errors;
@@ -9300,9 +9304,9 @@ BX.namespace("BX.Sale.OrderAjaxComponent");
         files = inputs.files || [],
         field = !!fieldName
           ? BX.message("SOA_FIELD") +
-            ' "' +
-            BX.util.htmlspecialchars(arProperty.NAME) +
-            '"'
+          ' "' +
+          BX.util.htmlspecialchars(arProperty.NAME) +
+          '"'
           : BX.message("SOA_FIELD"),
         defaultValue = inputs.previousSibling.value,
         file,
@@ -9336,21 +9340,21 @@ BX.namespace("BX.Sale.OrderAjaxComponent");
           )
             errors.push(
               BX.message("SOA_BAD_EXTENSION") +
-                ' "' +
-                fileName +
-                '" (' +
-                BX.util.htmlspecialchars(arProperty.ACCEPT) +
-                ")"
+              ' "' +
+              fileName +
+              '" (' +
+              BX.util.htmlspecialchars(arProperty.ACCEPT) +
+              ")"
             );
 
           if (file.size > parseInt(arProperty.MAXSIZE))
             errors.push(
               BX.message("SOA_MAX_SIZE") +
-                ' "' +
-                fileName +
-                '" (' +
-                this.getSizeString(arProperty.MAXSIZE, 1) +
-                ")"
+              ' "' +
+              fileName +
+              '" (' +
+              this.getSizeString(arProperty.MAXSIZE, 1) +
+              ")"
             );
         }
       }
@@ -9378,9 +9382,9 @@ BX.namespace("BX.Sale.OrderAjaxComponent");
 
     editPropsMap: function (propsNode) {
       var propsMapContainer = BX.create("DIV", {
-          props: { className: "col-sm-12" },
-          style: { marginBottom: "10px" },
-        }),
+        props: { className: "col-sm-12" },
+        style: { marginBottom: "10px" },
+      }),
         map = BX.create("DIV", {
           props: { id: "propsMap" },
           style: { width: "100%" },
@@ -9470,10 +9474,10 @@ BX.namespace("BX.Sale.OrderAjaxComponent");
           this.totalInfoBlockNode.appendChild(
             this.createTotalUnit(
               total.TAX_LIST[i].NAME +
-                (!!total.TAX_LIST[i].VALUE_FORMATED
-                  ? " " + total.TAX_LIST[i].VALUE_FORMATED
-                  : "") +
-                ":",
+              (!!total.TAX_LIST[i].VALUE_FORMATED
+                ? " " + total.TAX_LIST[i].VALUE_FORMATED
+                : "") +
+              ":",
               valFormatted
             )
           );
@@ -9502,7 +9506,7 @@ BX.namespace("BX.Sale.OrderAjaxComponent");
           curDelivery &&
           typeof curDelivery.DELIVERY_DISCOUNT_PRICE !== "undefined" &&
           parseFloat(curDelivery.PRICE) >
-            parseFloat(curDelivery.DELIVERY_DISCOUNT_PRICE)
+          parseFloat(curDelivery.DELIVERY_DISCOUNT_PRICE)
         ) {
           deliveryValue +=
             '<br><span class="bx-price-old">' +
@@ -9707,8 +9711,8 @@ BX.namespace("BX.Sale.OrderAjaxComponent");
 
     basketBlockScrollCheck: function () {
       var scrollableNodes = this.orderBlockNode.querySelectorAll(
-          "div.bx-soa-table-fade"
-        ),
+        "div.bx-soa-table-fade"
+      ),
         parentNode,
         parentWidth,
         tableNode,
@@ -9791,8 +9795,8 @@ BX.namespace("BX.Sale.OrderAjaxComponent");
 
     totalBlockFixFont: function () {
       var totalNode = this.totalInfoBlockNode.querySelector(
-          ".bx-soa-cart-total-line.bx-soa-cart-total-line-total"
-        ),
+        ".bx-soa-cart-total-line.bx-soa-cart-total-line-total"
+      ),
         buttonNode,
         target,
         objList = [];
@@ -9842,7 +9846,7 @@ BX.namespace("BX.Sale.OrderAjaxComponent");
       }
 
 
-      if(currentPerson.ID == 2) {
+      if (currentPerson.ID == 2) {
         ecommercePersonFact = 1;
       }
 

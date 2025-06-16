@@ -1,5 +1,10 @@
 {
     "require": {
         "olegpro/bitrix-sphinx": "^0.3.0"
+    },
+    "autoload": {
+        "psr-4": {
+            "Local\\": "local/lib/"
+        }
     }
 }
