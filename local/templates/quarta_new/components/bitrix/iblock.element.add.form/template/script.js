@@ -2,7 +2,7 @@ class LicensePopup {
     constructor() {
         this.formWrap = document.querySelector(".bid-license__wrapper");
         this.formWrapOpen = document.querySelector(".bid-license__wrapper p");
-        this.formWrapBtn = document.querySelectorAll('.bid-license__open');
+        this.formWrapBtn = document.getElementById("bid-license-btn__open");
         this.formWrapClose = document.querySelector('.bid-license__close');
 
         this.addLicensePopupEventHandler();
@@ -11,11 +11,9 @@ class LicensePopup {
     addLicensePopupEventHandler() {
         if (this.formWrapBtn) {
 
-            this.formWrapBtn.forEach(btn => {
-                btn.addEventListener('click', () => {
-                    this.openLicenseModal();
-                });
-            });
+            this.formWrapBtn.addEventListener('click', () => {
+                this.openLicenseModal();
+            })
         }
 
         if (this.formWrapClose) {

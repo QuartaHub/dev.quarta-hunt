@@ -51,7 +51,9 @@ Loader::registerAutoLoadClasses(null, [
     'CustomEvents\OnOrder' => '/local/php_interface/classes/Events/OnOrder.php',
     'CustomEvents\DeliveryStore' => '/local/php_interface/classes/Events/DeliveryStore.php',
     'CustomEvents\CustomMailEventHandler' => '/local/php_interface/classes/Events/CustomMailEventHandler.php',
-    'Personal\BufferBasket' => '/local/php_interface/classes/Personal/BufferBasket.php'
+    'Personal\BufferBasket' => '/local/php_interface/classes/Personal/BufferBasket.php',
+    'CustomEvents\OnSaleOrderSaved' => '/local/php_interface/classes/Events/OnSaleOrderSaved.php',
+    'CustomEvents\LicenseHandler' => '/local/php_interface/classes/Events/LicenseHandler.php',
 ]);
 
 

@@ -3,13 +3,39 @@
 namespace CustomEvents;
 
 use Bitrix\Main\Loader;
+use Bitrix\Main\Application;
 
 class LicenseHandler
 {
     protected static $BID_LICENSE_PRODUCT_IBLOCK_ID = 113;
 
+    public static function IBlockElementBeforeAddHandler(&$arFields)
+    {
+        $request = Application::getInstance()->getContext()->getRequest();
+        $products = json_decode($request->getPost('other_fields'), true);
+
+        foreach ($arFields['PROPERTY_VALUES'] as $key => $value) {
+            $res = \CIBlockProperty::GetByID($key);
+            if ($ar_res = $res->GetNext()) {
+                $arProps[$key]['CODE'] = $ar_res['CODE'];
+            }
+        }
+
+        foreach ($arProps as $key => $propsValue) {
+            if ($arProps[$key]['CODE'] === 'PRODUCT') {
+                foreach ($products as $product) {
+                    $productsText[] = $product['NAME'] . " | " . $product['QUANTITY'] . " | ";
+                }
+                $arFields['PROPERTY_VALUES'][$key] = implode($productsText);
+            }
+        }
+
+    }
     public static function IBlockElementAddHandler(&$arFields)
     {
+        $request = Application::getInstance()->getContext()->getRequest();
+        $products = json_decode($request->getPost('other_fields'), true);
+
         if ($arFields['IBLOCK_ID'] == self::$BID_LICENSE_PRODUCT_IBLOCK_ID) {
             Loader::includeModule('iblock');
 
@@ -44,7 +70,6 @@ class LicenseHandler
                 if ($ar_res = $res->GetNext()) {
                     $arProps[$key]['CODE'] = $ar_res['CODE'];
                 }
-
                 $arProps[$key]['VALUE'] = $value;
             }
 
@@ -57,7 +82,6 @@ class LicenseHandler
             self::mailTemplateSend($mailFields);
         }
     }
-
     public static function mailTemplateSend($mailFields)
     {
         \Bitrix\Main\Mail\Event::sendImmediate(array(

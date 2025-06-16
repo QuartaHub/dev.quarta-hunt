@@ -8,7 +8,7 @@ class Version20250613121307 extends Version
 
     protected $description   = "124572 | 1. Доработка служб доставки - с помощью модуля маркетплейс - Изменения логики оформления заказа | элементы ИБ связей";
 
-    protected $moduleVersion = "4.18.1";
+    protected $moduleVersion = "4.2.4";
 
     /**
      * @throws Exceptions\MigrationException

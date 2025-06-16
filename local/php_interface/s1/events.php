@@ -173,3 +173,22 @@ $eventManager->addEventHandler(
     'OnBeforeEventAdd',
     ['CustomEvents\CustomMailEventHandler', 'onBeforeEventAddHandler']
 );
+
+$eventManager->addEventHandler(
+    'sale',
+    'OnSaleOrderSaved',
+    ['CustomEvents\OnSaleOrderSaved', 'deleteProductFromCustomBasket']
+);
+
+// 124576 - для заявок с сайта на лицензионную продукцию
+$eventManager->addEventHandler(
+    'iblock',
+    'OnBeforeIBlockElementAdd',
+    ['CustomEvents\LicenseHandler', 'IBlockElementBeforeAddHandler']
+);
+
+$eventManager->addEventHandler(
+    'iblock',
+    'OnAfterIBlockElementAdd',
+    ['CustomEvents\LicenseHandler', 'IBlockElementAddHandler']
+);

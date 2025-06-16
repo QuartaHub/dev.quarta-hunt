@@ -18,6 +18,7 @@ class BufferBasket extends Basket
 
     public function __construct()
     {
+        CModule::IncludeModule('highloadblock');
         $this->fUser = Fuser::getId();
         parent::__construct();
     }
@@ -94,5 +95,18 @@ class BufferBasket extends Basket
         } catch (Exception $e) {
             return false;
         }
+    }
+
+    public function getAllProductsInBasketForUser() : array
+    {
+        $hlblock = HL\HighloadBlockTable::getById(QUARTA_BUFFERBASKET_CODE_GROUP)->fetch();
+        $entity = HL\HighloadBlockTable::compileEntity($hlblock);
+        $entityDataClass = $entity->getDataClass();
+        $outputData = $entityDataClass::getList(array(
+            "select" => ['*'],
+            "order" => ["ID" => "ASC"],
+            "filter" => ["UF_FUSER_ID" => $this->fUser]
+        ))->fetchAll();
+        return $outputData;
     }
 }

@@ -380,5 +380,6 @@ Loc::loadMessages(__FILE__); ?>
 				<? endif ?>
 			</div>
 		</div>
+        <input type="hidden" id="other-fields" name="other_fields">
 	<? endif; ?>
 </form>

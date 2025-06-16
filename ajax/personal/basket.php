@@ -29,7 +29,7 @@ switch ($requestBody->action) {
         break;
 
     case 'ADD':
-        $response = $basket->addProductToBasket($requestBody->id, $requestBody->quantity);
+        //$response = $basket->addProductToBasket($requestBody->id, $requestBody->quantity);
         $response = $bufferBasket->addProductToBufferBasket($requestBody->id, $requestBody->quantity);
         break;
 
@@ -38,7 +38,7 @@ switch ($requestBody->action) {
         break;
 
     case 'DELETE':
-        $response = $basket->deleteProductFromBasket($requestBody->id, $requestBody->quantity);
+        //$response = $basket->deleteProductFromBasket($requestBody->id, $requestBody->quantity);
         $response = $bufferBasket->deleteProductFromBufferBasket($requestBody->id);
         break;
 
